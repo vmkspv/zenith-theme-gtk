@@ -1,0 +1,629 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    SPDX-FileCopyrightText: 2025 Vladimir Kosolapov
+    SPDX-License-Identifier: MIT
+-->
+<language id="nginx" name="Nginx" version="2.0" _section="Other">
+
+    <metadata>
+        <property name="mimetypes">text/x-nginx-conf</property>
+        <property name="globs">*.conf</property>
+        <property name="line-comment-start">#</property>
+    </metadata>
+
+    <styles>
+        <style id="block" name="Block" map-to="def:preprocessor"/>
+        <style id="comment" name="Comment" map-to="def:comment"/>
+        <style id="directive" name="Directive" map-to="def:keyword"/>
+        <style id="file-ext" name="File Extension" map-to="def:type"/>
+        <style id="file-path" name="File Path" map-to="def:string"/>
+        <style id="float" name="Floating point number" map-to="def:floating-point"/>
+        <style id="keyword" name="Keyword" map-to="def:statement"/>
+        <style id="location-block" name="Location Block" map-to="def:special-constant"/>
+        <style id="mime-type" name="MIME Type" map-to="def:identifier"/>
+        <style id="number" name="Number" map-to="def:decimal"/>
+        <style id="regexp" name="Regular Expression" map-to="def:regexp"/>
+        <style id="special-char" name="Escaped Character" map-to="def:special-char"/>
+        <style id="special-var" name="Special Variables" map-to="def:builtin"/>
+        <style id="string" name="String" map-to="def:string"/>
+        <style id="variable" name="Variable" map-to="def:type"/>
+    </styles>
+
+    <definitions>
+        <context id="comment" style-ref="comment" end-at-line-end="true" class="comment">
+            <start>#</start>
+        </context>
+
+        <context id="string" style-ref="string" end-at-line-end="true" class="string">
+            <start>"</start>
+            <end>"</end>
+            <include>
+                <context id="double_escape" style-ref="special-char">
+                    <match>\\(?:"|$)</match>
+                </context>
+                <context ref="variable" />
+            </include>
+        </context>
+
+        <context id="single-string" style-ref="string" end-at-line-end="true" class="string">
+            <start>'</start>
+            <end>'</end>
+            <include>
+                <context id="single_escape" style-ref="special-char">
+                    <match>\\(?:'|\$)</match>
+                </context>
+                <context ref="variable" />
+            </include>
+        </context>
+
+        <context id="regexp-pattern" style-ref="regexp">
+            <match>~\s*"[^"]+"|~\s*'[^']+'|~\s*[^{;]+</match>
+        </context>
+
+        <context id="directive" style-ref="directive">
+            <keyword>absolute_redirect</keyword>
+            <keyword>accept_mutex_delay</keyword>
+            <keyword>accept_mutex</keyword>
+            <keyword>access_log</keyword>
+            <keyword>add_after_body</keyword>
+            <keyword>add_before_body</keyword>
+            <keyword>add_header</keyword>
+            <keyword>add_trailer</keyword>
+            <keyword>addition_types</keyword>
+            <keyword>aio_write</keyword>
+            <keyword>aio</keyword>
+            <keyword>alias</keyword>
+            <keyword>allow</keyword>
+            <keyword>ancient_browser_value</keyword>
+            <keyword>ancient_browser</keyword>
+            <keyword>auth_basic_user_file</keyword>
+            <keyword>auth_basic</keyword>
+            <keyword>auth_delay</keyword>
+            <keyword>auth_http_header</keyword>
+            <keyword>auth_http_pass_client_cert</keyword>
+            <keyword>auth_http_timeout</keyword>
+            <keyword>auth_http</keyword>
+            <keyword>auth_jwt_claim_set</keyword>
+            <keyword>auth_jwt_header_set</keyword>
+            <keyword>auth_jwt_key_cache</keyword>
+            <keyword>auth_jwt_key_file</keyword>
+            <keyword>auth_jwt_key_request</keyword>
+            <keyword>auth_jwt_leeway</keyword>
+            <keyword>auth_jwt_require</keyword>
+            <keyword>auth_jwt_type</keyword>
+            <keyword>auth_jwt</keyword>
+            <keyword>auth_request_set</keyword>
+            <keyword>auth_request</keyword>
+            <keyword>autoindex_exact_size</keyword>
+            <keyword>autoindex_format</keyword>
+            <keyword>autoindex_localtime</keyword>
+            <keyword>autoindex</keyword>
+            <keyword>break</keyword>
+            <keyword>charset_map</keyword>
+            <keyword>charset_types</keyword>
+            <keyword>charset</keyword>
+            <keyword>chunked_transfer_encoding</keyword>
+            <keyword>client_body_buffer_size</keyword>
+            <keyword>client_body_in_file_only</keyword>
+            <keyword>client_body_in_single_buffer</keyword>
+            <keyword>client_body_temp_path</keyword>
+            <keyword>client_body_timeout</keyword>
+            <keyword>client_header_buffer_size</keyword>
+            <keyword>client_header_timeout</keyword>
+            <keyword>client_max_body_size</keyword>
+            <keyword>connect_timeout</keyword>
+            <keyword>connection_pool_size</keyword>
+            <keyword>create_full_put_path</keyword>
+            <keyword>daemon</keyword>
+            <keyword>dav_access</keyword>
+            <keyword>dav_methods</keyword>
+            <keyword>debug_connection</keyword>
+            <keyword>debug_points</keyword>
+            <keyword>debug</keyword>
+            <keyword>default_type</keyword>
+            <keyword>deny</keyword>
+            <keyword>directio_alignment</keyword>
+            <keyword>directio</keyword>
+            <keyword>disable_symlinks</keyword>
+            <keyword>empty_gif</keyword>
+            <keyword>env</keyword>
+            <keyword>error_log</keyword>
+            <keyword>error_page</keyword>
+            <keyword>etag</keyword>
+            <keyword>events</keyword>
+            <keyword>expires</keyword>
+            <keyword>f4f_buffer_size</keyword>
+            <keyword>f4f</keyword>
+            <keyword>fastcgi_bind</keyword>
+            <keyword>fastcgi_buffer_size</keyword>
+            <keyword>fastcgi_buffering</keyword>
+            <keyword>fastcgi_buffers</keyword>
+            <keyword>fastcgi_busy_buffers_size</keyword>
+            <keyword>fastcgi_cache_background_update</keyword>
+            <keyword>fastcgi_cache_bypass</keyword>
+            <keyword>fastcgi_cache_key</keyword>
+            <keyword>fastcgi_cache_lock_age</keyword>
+            <keyword>fastcgi_cache_lock_timeout</keyword>
+            <keyword>fastcgi_cache_lock</keyword>
+            <keyword>fastcgi_cache_max_range_offset</keyword>
+            <keyword>fastcgi_cache_methods</keyword>
+            <keyword>fastcgi_cache_min_uses</keyword>
+            <keyword>fastcgi_cache_path</keyword>
+            <keyword>fastcgi_cache_purge</keyword>
+            <keyword>fastcgi_cache_revalidate</keyword>
+            <keyword>fastcgi_cache_use_stale</keyword>
+            <keyword>fastcgi_cache_valid</keyword>
+            <keyword>fastcgi_cache</keyword>
+            <keyword>fastcgi_catch_stderr</keyword>
+            <keyword>fastcgi_connect_timeout</keyword>
+            <keyword>fastcgi_force_ranges</keyword>
+            <keyword>fastcgi_hide_header</keyword>
+            <keyword>fastcgi_ignore_client_abort</keyword>
+            <keyword>fastcgi_ignore_headers</keyword>
+            <keyword>fastcgi_index</keyword>
+            <keyword>fastcgi_intercept_errors</keyword>
+            <keyword>fastcgi_keep_conn</keyword>
+            <keyword>fastcgi_limit_rate</keyword>
+            <keyword>fastcgi_max_temp_file_size</keyword>
+            <keyword>fastcgi_next_upstream_timeout</keyword>
+            <keyword>fastcgi_next_upstream_tries</keyword>
+            <keyword>fastcgi_next_upstream</keyword>
+            <keyword>fastcgi_no_cache</keyword>
+            <keyword>fastcgi_param</keyword>
+            <keyword>fastcgi_pass_header</keyword>
+            <keyword>fastcgi_pass_request_body</keyword>
+            <keyword>fastcgi_pass_request_headers</keyword>
+            <keyword>fastcgi_pass</keyword>
+            <keyword>fastcgi_read_timeout</keyword>
+            <keyword>fastcgi_request_buffering</keyword>
+            <keyword>fastcgi_send_lowat</keyword>
+            <keyword>fastcgi_send_timeout</keyword>
+            <keyword>fastcgi_socket_keepalive</keyword>
+            <keyword>fastcgi_split_path_info</keyword>
+            <keyword>fastcgi_store_access</keyword>
+            <keyword>fastcgi_store</keyword>
+            <keyword>fastcgi_temp_file_write_size</keyword>
+            <keyword>fastcgi_temp_path</keyword>
+            <keyword>geo</keyword>
+            <keyword>geoip_city</keyword>
+            <keyword>geoip_country</keyword>
+            <keyword>geoip_org</keyword>
+            <keyword>geoip_proxy_recursive</keyword>
+            <keyword>geoip_proxy</keyword>
+            <keyword>google_perftools_profiles</keyword>
+            <keyword>gzip_buffers</keyword>
+            <keyword>gzip_comp_level</keyword>
+            <keyword>gzip_disable</keyword>
+            <keyword>gzip_http_version</keyword>
+            <keyword>gzip_min_length</keyword>
+            <keyword>gzip_proxied</keyword>
+            <keyword>gzip_static</keyword>
+            <keyword>gzip_types</keyword>
+            <keyword>gzip_vary</keyword>
+            <keyword>gzip</keyword>
+            <keyword>hash</keyword>
+            <keyword>health_check_timeout</keyword>
+            <keyword>health_check</keyword>
+            <keyword>hls_buffers</keyword>
+            <keyword>hls_forward_args</keyword>
+            <keyword>hls_fragment</keyword>
+            <keyword>hls_mp4_buffer_size</keyword>
+            <keyword>hls_mp4_max_buffer_size</keyword>
+            <keyword>hls</keyword>
+            <keyword>http\b(?!:)</keyword>
+            <keyword>http2</keyword>
+            <keyword>http3</keyword>
+            <keyword>if_modified_since</keyword>
+            <keyword>ignore_invalid_headers</keyword>
+            <keyword>inactive</keyword>
+            <keyword>include\b</keyword>
+            <keyword>internal\b</keyword>
+            <keyword>ip_hash</keyword>
+            <keyword>ipv6only</keyword>
+            <keyword>keepalive_disable</keyword>
+            <keyword>keepalive_requests</keyword>
+            <keyword>keepalive_timeout</keyword>
+            <keyword>keepalive</keyword>
+            <keyword>keys_zone</keyword>
+            <keyword>large_client_header_buffers</keyword>
+            <keyword>levels</keyword>
+            <keyword>limit_conn_zone</keyword>
+            <keyword>limit_conn</keyword>
+            <keyword>limit_req_zone</keyword>
+            <keyword>limit_req</keyword>
+            <keyword>listen\b</keyword>
+            <keyword>load_module</keyword>
+            <keyword>loader_files</keyword>
+            <keyword>loader_threshold</keyword>
+            <keyword>location\b</keyword>
+            <keyword>lock_file</keyword>
+            <keyword>log_format</keyword>
+            <keyword>log_not_found</keyword>
+            <keyword>main</keyword>
+            <keyword>map_hash_bucket_size</keyword>
+            <keyword>map_hash_max_size</keyword>
+            <keyword>map\b</keyword>
+            <keyword>master_process</keyword>
+            <keyword>match\b</keyword>
+            <keyword>max_ranges</keyword>
+            <keyword>max_size</keyword>
+            <keyword>max-age</keyword>
+            <keyword>memcached_pass</keyword>
+            <keyword>memory</keyword>
+            <keyword>mirror</keyword>
+            <keyword>multi_accept</keyword>
+            <keyword>open_file_cache_errors</keyword>
+            <keyword>open_file_cache_min_uses</keyword>
+            <keyword>open_file_cache_valid</keyword>
+            <keyword>open_file_cache</keyword>
+            <keyword>open_log_file_cache</keyword>
+            <keyword>output_buffers</keyword>
+            <keyword>pcre_jit</keyword>
+            <keyword>pid</keyword>
+            <keyword>port_in_redirect</keyword>
+            <keyword>post_action</keyword>
+            <keyword>postpone_output</keyword>
+            <keyword>proxy_buffer_size</keyword>
+            <keyword>proxy_buffering</keyword>
+            <keyword>proxy_buffers</keyword>
+            <keyword>proxy_busy_buffers_size</keyword>
+            <keyword>proxy_cache_bypass</keyword>
+            <keyword>proxy_cache_path</keyword>
+            <keyword>proxy_cache_revalidate</keyword>
+            <keyword>proxy_cache</keyword>
+            <keyword>proxy_connect_timeout</keyword>
+            <keyword>proxy_cookie_domain</keyword>
+            <keyword>proxy_cookie_path</keyword>
+            <keyword>proxy_hide_header</keyword>
+            <keyword>proxy_http_version</keyword>
+            <keyword>proxy_ignore_headers</keyword>
+            <keyword>proxy_intercept_errors</keyword>
+            <keyword>proxy_max_temp_file_size</keyword>
+            <keyword>proxy_method</keyword>
+            <keyword>proxy_next_upstream</keyword>
+            <keyword>proxy_pass_request_body</keyword>
+            <keyword>proxy_pass_request_headers</keyword>
+            <keyword>proxy_pass</keyword>
+            <keyword>proxy_read_timeout</keyword>
+            <keyword>proxy_redirect</keyword>
+            <keyword>proxy_send_lowat</keyword>
+            <keyword>proxy_send_timeout</keyword>
+            <keyword>proxy_set_header</keyword>
+            <keyword>proxy_ssl_certificate_key</keyword>
+            <keyword>proxy_ssl_certificate</keyword>
+            <keyword>proxy_ssl_ciphers</keyword>
+            <keyword>proxy_ssl_name</keyword>
+            <keyword>proxy_ssl_protocols</keyword>
+            <keyword>proxy_ssl_server_name</keyword>
+            <keyword>proxy_ssl_trusted_certificate</keyword>
+            <keyword>proxy_ssl_verify</keyword>
+            <keyword>proxy_store</keyword>
+            <keyword>proxy_temp_file_write_size</keyword>
+            <keyword>proxy_temp_path</keyword>
+            <keyword>QUERY_STRING</keyword>
+            <keyword>random</keyword>
+            <keyword>real_ip_header</keyword>
+            <keyword>real_ip_recursive</keyword>
+            <keyword>recursive_error_pages</keyword>
+            <keyword>reset_timedout_connection</keyword>
+            <keyword>resolver_timeout</keyword>
+            <keyword>resolver</keyword>
+            <keyword>return\b</keyword>
+            <keyword>rewrite</keyword>
+            <keyword>root\b</keyword>
+            <keyword>satisfy</keyword>
+            <keyword>scgi_pass</keyword>
+            <keyword>SCRIPT_FILENAME</keyword>
+            <keyword>SCRIPT_NAME</keyword>
+            <keyword>send_lowat</keyword>
+            <keyword>send_timeout</keyword>
+            <keyword>sendfile_max_chunk</keyword>
+            <keyword>sendfile</keyword>
+            <keyword>server_name</keyword>
+            <keyword>server_names_hash_bucket_size</keyword>
+            <keyword>server_names_hash_max_size</keyword>
+            <keyword>server_tokens</keyword>
+            <keyword>server\b(?!\.)</keyword>
+            <keyword>set\b</keyword>
+            <keyword>slice</keyword>
+            <keyword>spdy</keyword>
+            <keyword>ssl_buffer_size</keyword>
+            <keyword>ssl_certificate_key</keyword>
+            <keyword>ssl_certificate</keyword>
+            <keyword>ssl_ciphers</keyword>
+            <keyword>ssl_client_certificate</keyword>
+            <keyword>ssl_crl</keyword>
+            <keyword>ssl_dhparam</keyword>
+            <keyword>ssl_early_data</keyword>
+            <keyword>ssl_ecdh_curve</keyword>
+            <keyword>ssl_password_file</keyword>
+            <keyword>ssl_prefer_server_ciphers</keyword>
+            <keyword>ssl_protocols</keyword>
+            <keyword>ssl_session_cache</keyword>
+            <keyword>ssl_session_tickets</keyword>
+            <keyword>ssl_session_timeout</keyword>
+            <keyword>ssl_stapling_verify</keyword>
+            <keyword>ssl_stapling</keyword>
+            <keyword>ssl_trusted_certificate</keyword>
+            <keyword>ssl_verify_client</keyword>
+            <keyword>ssl_verify_depth</keyword>
+            <keyword>stderr</keyword>
+            <keyword>stub_status</keyword>
+            <keyword>sub_filter</keyword>
+            <keyword>subrequest_output_buffer_size</keyword>
+            <keyword>syslog</keyword>
+            <keyword>tcp_nodelay</keyword>
+            <keyword>tcp_nopush</keyword>
+            <keyword>timer_resolution</keyword>
+            <keyword>try_files</keyword>
+            <keyword>types_hash_max_size</keyword>
+            <keyword>types\b</keyword>
+            <keyword>underscores_in_headers</keyword>
+            <keyword>upstream\b</keyword>
+            <keyword>user\b</keyword>
+            <keyword>uwsgi_pass</keyword>
+            <keyword>valid_referers</keyword>
+            <keyword>variables_hash_bucket_size</keyword>
+            <keyword>variables_hash_max_size</keyword>
+            <keyword>worker_connections</keyword>
+            <keyword>worker_priority</keyword>
+            <keyword>worker_processes</keyword>
+            <keyword>worker_rlimit_nofile</keyword>
+            <keyword>working_directory</keyword>
+            <keyword>zone</keyword>
+        </context>
+
+        <context id="special-vars" style-ref="special-var">
+            <keyword>$ancient_browser</keyword>
+            <keyword>$args</keyword>
+            <keyword>$binary_remote_addr</keyword>
+            <keyword>$body_bytes_sent</keyword>
+            <keyword>$document_root</keyword>
+            <keyword>$fastcgi_script_name</keyword>
+            <keyword>$host</keyword>
+            <keyword>$http_host</keyword>
+            <keyword>$https</keyword>
+            <keyword>$is_args</keyword>
+            <keyword>$proxy_add_x_forwarded_for</keyword>
+            <keyword>$query_string</keyword>
+            <keyword>$remote_addr</keyword>
+            <keyword>$request_method</keyword>
+            <keyword>$request_uri</keyword>
+            <keyword>$scheme</keyword>
+            <keyword>$server_addr</keyword>
+            <keyword>$server_name</keyword>
+            <keyword>$server_port</keyword>
+            <keyword>$status</keyword>
+            <keyword>$time_local</keyword>
+            <keyword>$uri</keyword>
+        </context>
+
+        <context id="keyword" style-ref="keyword">
+            <keyword>=301</keyword>
+            <keyword>=302</keyword>
+            <keyword>=307</keyword>
+            <keyword>=403</keyword>
+            <keyword>=404</keyword>
+            <keyword>=500</keyword>
+            <keyword>aio</keyword>
+            <keyword>alert</keyword>
+            <keyword>all</keyword>
+            <keyword>always</keyword>
+            <keyword>any</keyword>
+            <keyword>application/atom+xml</keyword>
+            <keyword>application/java-archive</keyword>
+            <keyword>application/javascript</keyword>
+            <keyword>application/json</keyword>
+            <keyword>application/mac-binhex40</keyword>
+            <keyword>application/msword</keyword>
+            <keyword>application/octet-stream</keyword>
+            <keyword>application/pdf</keyword>
+            <keyword>application/postscript</keyword>
+            <keyword>application/rss+xml</keyword>
+            <keyword>application/rtf</keyword>
+            <keyword>application/vnd.apple.mpegurl</keyword>
+            <keyword>application/vnd.google-earth.kml+xml</keyword>
+            <keyword>application/vnd.google-earth.kmz</keyword>
+            <keyword>application/vnd.ms-excel</keyword>
+            <keyword>application/vnd.ms-fontobject</keyword>
+            <keyword>application/vnd.ms-powerpoint</keyword>
+            <keyword>application/vnd.oasis.opendocument.graphics</keyword>
+            <keyword>application/vnd.oasis.opendocument.presentation</keyword>
+            <keyword>application/vnd.oasis.opendocument.spreadsheet</keyword>
+            <keyword>application/vnd.oasis.opendocument.text</keyword>
+            <keyword>application/vnd.openxmlformats-officedocument.presentationml.presentation</keyword>
+            <keyword>application/vnd.openxmlformats-officedocument.spreadsheetml.sheet</keyword>
+            <keyword>application/vnd.openxmlformats-officedocument.wordprocessingml.document</keyword>
+            <keyword>application/vnd.wap.wmlc</keyword>
+            <keyword>application/wasm</keyword>
+            <keyword>application/x-7z-compressed</keyword>
+            <keyword>application/x-cocoa</keyword>
+            <keyword>application/x-java-archive-diff</keyword>
+            <keyword>application/x-java-jnlp-file</keyword>
+            <keyword>application/x-makeself</keyword>
+            <keyword>application/x-perl</keyword>
+            <keyword>application/x-pilot</keyword>
+            <keyword>application/x-rar-compressed</keyword>
+            <keyword>application/x-redhat-package-manager</keyword>
+            <keyword>application/x-sea</keyword>
+            <keyword>application/x-shockwave-flash</keyword>
+            <keyword>application/x-stuffit</keyword>
+            <keyword>application/x-tcl</keyword>
+            <keyword>application/x-x509-ca-cert</keyword>
+            <keyword>application/x-xpinstall</keyword>
+            <keyword>application/xhtml+xml</keyword>
+            <keyword>application/xspf+xml</keyword>
+            <keyword>application/zip</keyword>
+            <keyword>audio/midi</keyword>
+            <keyword>audio/mpeg</keyword>
+            <keyword>audio/ogg</keyword>
+            <keyword>audio/x-m4a</keyword>
+            <keyword>audio/x-realaudio</keyword>
+            <keyword>before</keyword>
+            <keyword>builtin</keyword>
+            <keyword>crit</keyword>
+            <keyword>debug</keyword>
+            <keyword>default</keyword>
+            <keyword>direct</keyword>
+            <keyword>emerg</keyword>
+            <keyword>epoll</keyword>
+            <keyword>error\b(?!\.)</keyword>
+            <keyword>exact_match</keyword>
+            <keyword>exact\b</keyword>
+            <keyword>font/woff</keyword>
+            <keyword>font/woff2</keyword>
+            <keyword>image/avif</keyword>
+            <keyword>image/gif</keyword>
+            <keyword>image/jpeg</keyword>
+            <keyword>image/png</keyword>
+            <keyword>image/svg+xml</keyword>
+            <keyword>image/tiff</keyword>
+            <keyword>image/vnd.wap.wbmp</keyword>
+            <keyword>image/webp</keyword>
+            <keyword>image/x-icon</keyword>
+            <keyword>image/x-jng</keyword>
+            <keyword>image/x-ms-bmp</keyword>
+            <keyword>info</keyword>
+            <keyword>kqueue</keyword>
+            <keyword>main\b</keyword>
+            <keyword>max</keyword>
+            <keyword>msie</keyword>
+            <keyword>notice</keyword>
+            <keyword>off\b</keyword>
+            <keyword>on\b</keyword>
+            <keyword>permanent</keyword>
+            <keyword>raw</keyword>
+            <keyword>redirect\b</keyword>
+            <keyword>ssl\b</keyword>
+            <keyword>temporary</keyword>
+            <keyword>text/css</keyword>
+            <keyword>text/html</keyword>
+            <keyword>text/javascript</keyword>
+            <keyword>text/mathml</keyword>
+            <keyword>text/plain</keyword>
+            <keyword>text/vnd.sun.j2me.app-descriptor</keyword>
+            <keyword>text/vnd.wap.wml</keyword>
+            <keyword>text/x-component</keyword>
+            <keyword>text/xml</keyword>
+            <keyword>threads</keyword>
+            <keyword>video/3gpp</keyword>
+            <keyword>video/mp2t</keyword>
+            <keyword>video/mp4</keyword>
+            <keyword>video/mpeg</keyword>
+            <keyword>video/quicktime</keyword>
+            <keyword>video/webm</keyword>
+            <keyword>video/x-flv</keyword>
+            <keyword>video/x-m4v</keyword>
+            <keyword>video/x-mng</keyword>
+            <keyword>video/x-ms-asf</keyword>
+            <keyword>video/x-ms-wmv</keyword>
+            <keyword>video/x-msvideo</keyword>
+            <keyword>volatile</keyword>
+            <keyword>warn</keyword>
+        </context>
+
+        <context id="block-context" style-ref="block">
+            <match>{|}</match>
+        </context>
+
+        <context id="block-structure" end-parent="true" once-only="true" extend-parent="true">
+            <start>\{</start>
+            <end>\}</end>
+            <include>
+                <context ref="comment"/>
+                <context ref="directive"/>
+                <context ref="keyword"/>
+                <context ref="nginx"/>
+            </include>
+        </context>
+
+        <context id="location-operator" style-ref="location-block">
+            <match>\s(=|~|~\*|\^~)\s</match>
+        </context>
+
+        <context id="semicolon" style-ref="block">
+            <match>;</match>
+        </context>
+
+        <context id="complex-value-number" style-ref="number">
+            <match>(?&lt;=[:=])[0-9]+([kKmMgG]|ms|[smhdwy]|r/s)?(?![\w])(?=\s|;|:|$)</match>
+        </context>
+
+        <context id="float" style-ref="float">
+            <match>(?&lt;![\w\.])(?:[1-9][0-9]*|0)(?:\.[0-9]+)(?:[eE][+\-]?[0-9]+)?(?![\w])(?=\s|;|$)</match>
+        </context>
+
+        <context id="decimal" style-ref="number">
+            <match>(?&lt;![\w\.])-?(?:[1-9][0-9]*|0)(?![.eE\w])(?=\s|;|$)</match>
+        </context>
+
+        <context id="eq-number" style-ref="number">
+            <match>(?&lt;==)[0-9]+([kKmMgG]|ms|[smhdwy])?(?![\w:])(?=\s|;|$)</match>
+        </context>
+
+        <context id="number" style-ref="number">
+            <match>(?&lt;![\w])(?&lt;=\s|^)[0-9]+([kKmMgG]|ms|[smhdwy])?(?![\w])(?=\s|;|$)</match>
+        </context>
+
+        <context id="config-files" style-ref="file-path">
+            <match>(mime\.types|fastcgi_params|uwsgi_params|scgi_params|nginx\.conf|default\.conf|proxy_params|sites-available|sites-enabled)</match>
+        </context>
+
+        <context id="file-extension" style-ref="file-ext">
+            <match>(?&lt;![\/\w])\*?\.(3gp|3gpp|7z|ai|asf|asx|atom|avi|avif|bin|bmp|cco|crt|css|deb|der|dll|dmg|doc|docx|ear|eot|eps|exe|flv|gif|hqx|htc|htm|html|ico|img|iso|jad|jar|jardiff|jng|jnlp|jpeg|jpg|js|json|kar|kml|kmz|m3u8|m4a|m4v|mid|midi|mml|mng|mov|mp3|mp4|mpeg|mpg|msi|msm|msp|odg|odp|ods|odt|ogg|pdb|pdf|pem|pl|pm|png|ppt|pptx|prc|ps|ra|rar|rpm|rss|rtf|run|sea|shtml|sit|svg|svgz|swf|tcl|tif|tiff|tk|ts|txt|war|wasm|wbmp|webm|webp|wml|wmlc|wmv|woff|woff2|xhtml|xls|xlsx|xml|xpi|xspf|zip)(?=[\s;]|$)</match>
+        </context>
+
+        <context id="file-path" style-ref="file-path">
+            <match>(?&lt;=[=\s])/[^;{}\s"']+</match>
+        </context>
+
+        <context id="ip-address">
+            <match>(?&lt;=\s|^|\=)(?:[0-9]{1,3}\.){3}[0-9]{1,3}(?:/[0-9]{1,2})?(?=\s|;|$)</match>
+        </context>
+
+        <context id="mime-type" style-ref="mime-type">
+            <match>(application|audio|font|image|text|video)/[\w\.\-+]+</match>
+        </context>
+
+        <context id="mime-type-declaration" style-ref="mime-type">
+            <match>(^|\s|;)(application|audio|font|image|text|video)/[\w\.\-+]+($|;|\s)</match>
+        </context>
+
+        <context id="named-location" style-ref="location-block">
+            <match>@[a-zA-Z0-9_\-]+</match>
+        </context>
+
+        <context id="variable" style-ref="variable">
+            <match>\$\{?\w+\}?</match>
+        </context>
+
+        <context id="nginx">
+            <include>
+                <context ref="comment"/>
+                <context ref="string"/>
+                <context ref="single-string"/>
+                <context ref="regexp-pattern"/>
+                <context ref="directive"/>
+                <context ref="special-vars"/>
+                <context ref="keyword"/>
+                <context ref="block-context"/>
+                <context ref="block-structure"/>
+                <context ref="location-operator"/>
+                <context ref="semicolon"/>
+                <context ref="complex-value-number"/>
+                <context ref="float"/>
+                <context ref="decimal"/>
+                <context ref="eq-number"/>
+                <context ref="number"/>
+                <context ref="config-files"/>
+                <context ref="file-extension"/>
+                <context ref="file-path"/>
+                <context ref="ip-address"/>
+                <context ref="mime-type"/>
+                <context ref="mime-type-declaration"/>
+                <context ref="named-location"/>
+                <context ref="variable"/>
+            </include>
+        </context>
+    </definitions>
+</language>

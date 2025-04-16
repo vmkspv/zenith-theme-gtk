@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    SPDX-FileCopyrightText: 2025 Vladimir Kosolapov, Brian Kuzmanoski
+    SPDX-License-Identifier: MIT
+-->
+<style-scheme id="zenith" name="Zenith" version="1.0">
+    <author>Vladimir Kosolapov, Brian Kuzmanoski</author>
+    <_description>A refined dark theme with cohesive colors and complete UI coverage</_description>
+
+    <metadata>
+        <property name="accent_color">#4d8fbb</property>
+        <property name="accent_bg_color">#4d8fbb</property>
+        <property name="accent_fg_color">#fafafa</property>
+        <property name="button_bg_color">#4d8fbb</property>
+        <property name="button_fg_color">#fafafa</property>
+        <property name="destructive_color">#be5a67</property>
+        <property name="destructive_bg_color">#be5a67</property>
+        <property name="destructive_fg_color">#fafafa</property>
+        <property name="headerbar_bg_color">#242a2e</property>
+        <property name="headerbar_fg_color">#cbd1d6</property>
+        <property name="success_color">#50966a</property>
+        <property name="success_bg_color">#50966a</property>
+        <property name="success_fg_color">#fafafa</property>
+        <property name="warning_color">#b67554</property>
+        <property name="warning_bg_color">#b67554</property>
+        <property name="warning_fg_color">#fafafa</property>
+        <property name="terminal-palette">vscode</property>
+    </metadata>
+
+    <!-- Core Palette -->
+    <color name="accent"                     value="#61abda"/>
+    <color name="accent2"                    value="#4d97c6"/>
+    <color name="accent3"                    value="#395263"/>
+    <color name="base0"                      value="#000000"/>
+    <color name="base1"                      value="#161a1d"/>
+    <color name="base2"                      value="#242a2e"/>
+    <color name="base3"                      value="#2f363b"/>
+    <color name="base4"                      value="#383f43"/>
+    <color name="base5"                      value="#637079"/>
+    <color name="base6"                      value="#839099"/>
+    <color name="base7"                      value="#cbd1d6"/>
+    <color name="blue"                       value="#61abda"/>
+    <color name="cyan"                       value="#65b8c1"/>
+    <color name="green"                      value="#64b280"/>
+    <color name="lime"                       value="#64b280"/>
+    <color name="orange"                     value="#d68c67"/>
+    <color name="pink"                       value="#cf86c1"/>
+    <color name="purple"                     value="#9d86ce"/>
+    <color name="red"                        value="#de6e7c"/>
+    <color name="yellow"                     value="#d6b867"/>
+
+    <!-- Global Styles -->
+    <style name="background-pattern"         background="base2"/>
+    <style name="bracket-match"              foreground="accent" background="accent3" bold="true"/>
+    <style name="bracket-mismatch"           foreground="red" background="#2A1F24" bold="true"/>
+    <style name="current-line"               background="base2"/>
+    <style name="current-line-number"        foreground="accent" background="base2"/>
+    <style name="cursor"                     foreground="accent"/>
+    <style name="draw-spaces"                foreground="base4"/>
+    <style name="line-numbers"               foreground="base5" background="base1"/>
+    <style name="map-overlay"                background="base3"/>
+    <style name="search-match"               background="accent3" foreground="base7"/>
+    <style name="selection"                  background="accent3" foreground="base7"/>
+    <style name="text"                       foreground="base7" background="base1"/>
+
+    <!-- Diagnostics -->
+    <style name="def:error"                  foreground="red" background="#2A1F24" underline="error" bold="true"/>
+    <style name="def:note"                   foreground="blue" background="#1F242A" underline="info"/>
+    <style name="def:underline"              underline="single"/>
+    <style name="def:warning"                foreground="orange" background="#2A2420" underline="warning"/>
+    <style name="diagnostics:deprecated"     foreground="pink" background="#2A1F26" underline="error"/>
+
+    <!-- Core Syntax -->
+    <style name="def:comment"                foreground="base5" italic="true"/>
+    <style name="def:constant"               foreground="orange"/>
+    <style name="def:doc-comment"            foreground="base5" italic="true"/>
+    <style name="def:doc-comment-element"    foreground="base6" background="base2" bold="true"/>
+    <style name="def:function"               foreground="blue"/>
+    <style name="def:identifier"             foreground="base7"/>
+    <style name="def:keyword"                foreground="pink"/>
+    <style name="def:module-handler"         foreground="cyan"/>
+    <style name="def:namespace"              foreground="cyan"/>
+    <style name="def:number"                 foreground="orange"/>
+    <style name="def:operator"               foreground="base7"/>
+    <style name="def:preprocessor"           foreground="pink"/>
+    <style name="def:regexp"                 foreground="cyan"/>
+    <style name="def:regexp-assertion"       foreground="pink"/>
+    <style name="def:regexp-class"           foreground="cyan"/>
+    <style name="def:regexp-grouping"        foreground="pink"/>
+    <style name="def:regexp-quantifier"      foreground="orange"/>
+    <style name="def:reserved"               foreground="pink" bold="true"/>
+    <style name="def:special-char"           foreground="orange"/>
+    <style name="def:special-constant"       foreground="purple"/>
+    <style name="def:statement"              foreground="pink"/>
+    <style name="def:string"                 foreground="green"/>
+    <style name="def:type"                   foreground="cyan"/>
+    <style name="def:variable"               foreground="base7"/>
+
+    <!-- Programming Languages -->
+    <!-- ActionScript -->
+    <style name="actionscript:class"         foreground="cyan"/>
+    <style name="actionscript:import"        foreground="pink"/>
+    <style name="actionscript:package"       foreground="pink"/>
+
+    <!-- Ada -->
+    <style name="ada:attributes"             foreground="pink"/>
+    <style name="ada:declarations"           foreground="cyan" bold="true"/>
+    <style name="ada:identifiers"            foreground="base7"/>
+    <style name="ada:keywords"               foreground="pink" bold="true"/>
+
+    <!-- Assembly -->
+    <style name="asm:directives"             foreground="pink"/>
+    <style name="asm:instructions"           foreground="pink" bold="true"/>
+    <style name="asm:registers"              foreground="orange"/>
+
+    <!-- C Family -->
+    <style name="c:included-file"            foreground="green"/>
+    <style name="c:macro-name"               foreground="blue" bold="true"/>
+    <style name="c:preprocessor"             foreground="pink"/>
+    <style name="c:storage-class"            foreground="pink"/>
+    <style name="c:type-keyword"             foreground="cyan" bold="true"/>
+    <style name="cpp:standard-constant"      foreground="orange"/>
+    <style name="cpp:standard-library"       foreground="cyan"/>
+    <style name="cpp:standard-template"      foreground="cyan" italic="true"/>
+
+    <!-- COBOL -->
+    <style name="cobol:division"             foreground="pink" bold="true"/>
+    <style name="cobol:paragraph"            foreground="blue"/>
+    <style name="cobol:section"              foreground="cyan"/>
+
+    <!-- CUDA -->
+    <style name="cuda:device"                foreground="blue"/>
+    <style name="cuda:global"                foreground="pink"/>
+    <style name="cuda:kernel"                foreground="pink" bold="true"/>
+
+    <!-- D -->
+    <style name="d:attributes"               foreground="pink"/>
+    <style name="d:declarations"             foreground="cyan"/>
+    <style name="d:module-handlers"          foreground="pink"/>
+
+    <!-- Erlang -->
+    <style name="erlang:atom"                foreground="blue"/>
+    <style name="erlang:macro"               foreground="pink"/>
+    <style name="erlang:node-name"           foreground="orange"/>
+    <style name="erlang:record"              foreground="cyan"/>
+
+    <!-- Fortran -->
+    <style name="fortran:io"                 foreground="pink"/>
+    <style name="fortran:preprocessor"       foreground="pink"/>
+    <style name="fortran:program-unit"       foreground="cyan" bold="true"/>
+
+    <!-- Haskell -->
+    <style name="haskell:constructor"        foreground="blue"/>
+    <style name="haskell:module"             foreground="pink"/>
+    <style name="haskell:pragma"             foreground="pink"/>
+    <style name="haskell:type"               foreground="cyan"/>
+
+    <!-- JavaScript/TypeScript -->
+    <style name="js:built-in-constructor"    foreground="cyan"/>
+    <style name="js:built-in-function"       foreground="blue"/>
+    <style name="js:built-in-method"         foreground="blue"/>
+    <style name="js:template-literal"        foreground="green"/>
+    <style name="typescript:type"            foreground="cyan"/>
+
+    <!-- Lisp Family -->
+    <style name="lisp:keyword"               foreground="pink"/>
+    <style name="lisp:quoted-list"           foreground="orange"/>
+    <style name="lisp:special-form"          foreground="pink"/>
+    <style name="scheme:keyword"             foreground="pink"/>
+    <style name="scheme:parens"              foreground="base6"/>
+
+    <!-- LLVM -->
+    <style name="llvm:attribute"             foreground="pink"/>
+    <style name="llvm:instruction"           foreground="pink"/>
+    <style name="llvm:type"                  foreground="cyan"/>
+
+    <!-- Nix -->
+    <style name="nix:attribute-path"         foreground="cyan"/>
+    <style name="nix:function"               foreground="blue"/>
+    <style name="nix:path"                   foreground="green"/>
+
+    <!-- NSIS -->
+    <style name="nsis:command"               foreground="pink"/>
+    <style name="nsis:parameter"             foreground="orange"/>
+    <style name="nsis:variable"              foreground="cyan"/>
+
+    <!-- OCaml -->
+    <style name="ocaml:module"               foreground="pink"/>
+    <style name="ocaml:type"                 foreground="cyan"/>
+    <style name="ocaml:variant"              foreground="orange"/>
+
+    <!-- Pascal -->
+    <style name="pascal:directive"           foreground="pink"/>
+    <style name="pascal:type"                foreground="cyan"/>
+    <style name="pascal:unit"                foreground="pink"/>
+
+    <!-- Prolog -->
+    <style name="prolog:atom"                foreground="orange"/>
+    <style name="prolog:directive"           foreground="pink"/>
+    <style name="prolog:predicate"           foreground="blue"/>
+
+    <!-- Protobuf -->
+    <style name="protobuf:enum"              foreground="orange"/>
+    <style name="protobuf:field"             foreground="blue"/>
+    <style name="protobuf:message"           foreground="cyan"/>
+
+    <!-- Python -->
+    <style name="python:boolean"             foreground="orange"/>
+    <style name="python:builtin-constant"    foreground="orange"/>
+    <style name="python:builtin-function"    foreground="blue"/>
+    <style name="python:builtin-object"      foreground="cyan"/>
+    <style name="python:class-name"          foreground="cyan" bold="true"/>
+    <style name="python:decorator"           foreground="pink"/>
+    <style name="python:doc-comment"         foreground="base5" italic="true"/>
+    <style name="python:format"              foreground="orange"/>
+    <style name="python:module-handler"      foreground="pink"/>
+    <style name="python:special-variable"    foreground="pink" italic="true"/>
+    <style name="python:string-conversion"   foreground="green"/>
+    <style name="python:string-formatting"   foreground="orange" bold="true"/>
+
+    <!-- Rust -->
+    <style name="rust:attribute"             foreground="pink"/>
+    <style name="rust:doc-comment"           foreground="base5" italic="true"/>
+    <style name="rust:lifetime"              foreground="orange" italic="true"/>
+    <style name="rust:macro"                 foreground="blue"/>
+    <style name="rust:scope"                 foreground="pink"/>
+
+    <!-- Scala -->
+    <style name="scala:annotation"           foreground="pink"/>
+    <style name="scala:object"               foreground="pink"/>
+    <style name="scala:trait"                foreground="cyan" italic="true"/>
+
+    <!-- Shell -->
+    <style name="sh:builtin"                 foreground="blue"/>
+    <style name="sh:function"                foreground="blue"/>
+    <style name="sh:variable"                foreground="cyan"/>
+
+    <!-- Vala -->
+    <style name="vala:attributes"            foreground="pink"/>
+    <style name="vala:class-name"            foreground="cyan" bold="true"/>
+    <style name="vala:namespace"             foreground="pink"/>
+
+    <!-- Markup & Documentation -->
+    <!-- HTML/XML -->
+    <style name="html:script"                foreground="blue"/>
+    <style name="xml:attribute-name"         foreground="blue"/>
+    <style name="xml:attribute-value"        foreground="green"/>
+    <style name="xml:cdata-delim"            foreground="base5" bold="true"/>
+    <style name="xml:doctype"                foreground="pink" bold="true"/>
+    <style name="xml:element-name"           foreground="pink"/>
+    <style name="xml:namespace"              foreground="cyan"/>
+    <style name="xml:tag"                    foreground="pink"/>
+
+    <!-- CSS/SCSS -->
+    <style name="css:class-selector"         foreground="blue"/>
+    <style name="css:id-selector"            foreground="blue"/>
+    <style name="css:property-name"          foreground="cyan"/>
+    <style name="css:property-value"         foreground="green"/>
+    <style name="css:selector"               foreground="pink"/>
+
+    <!-- Markdown -->
+    <style name="markdown:backslash-escape"  foreground="orange"/>
+    <style name="markdown:blockquote-marker" foreground="base5"/>
+    <style name="markdown:code"              foreground="green"/>
+    <style name="markdown:code-block"        foreground="green"/>
+    <style name="markdown:code-span"         foreground="green"/>
+    <style name="markdown:emphasis"          bold="true" italic="true"/>
+    <style name="markdown:header"            foreground="pink" bold="true"/>
+    <style name="markdown:horizontal-rule"   foreground="base5"/>
+    <style name="markdown:image"             foreground="pink"/>
+    <style name="markdown:link-text"         foreground="blue"/>
+    <style name="markdown:list-marker"       foreground="orange" bold="true"/>
+    <style name="markdown:strong-emphasis"   foreground="orange" bold="true"/>
+    <style name="markdown:url"               foreground="cyan" underline="single"/>
+
+    <!-- GTK Documentation -->
+    <style name="gtk-doc:constant"           foreground="green" bold="true"/>
+    <style name="gtk-doc:deprecated"         foreground="red" bold="true"/>
+    <style name="gtk-doc:function"           foreground="blue"/>
+    <style name="gtk-doc:function-name"      foreground="blue"/>
+    <style name="gtk-doc:parameter"          foreground="cyan" bold="true"/>
+    <style name="gtk-doc:return"             foreground="blue" bold="true"/>
+    <style name="gtk-doc:since"              foreground="base5" bold="true"/>
+    <style name="gtk-doc:type"               foreground="cyan" bold="true"/>
+
+    <!-- Build Systems & Configuration -->
+    <!-- Autoconf/Automake -->
+    <style name="autoconf:keyword"           foreground="pink"/>
+    <style name="autoconf:variable"          foreground="cyan"/>
+    <style name="automake:primary"           foreground="pink"/>
+    <style name="automake:variable"          foreground="cyan"/>
+
+    <!-- CMake -->
+    <style name="cmake:command"              foreground="pink"/>
+    <style name="cmake:module"               foreground="blue"/>
+    <style name="cmake:string"               foreground="green"/>
+    <style name="cmake:variable"             foreground="cyan"/>
+
+    <!-- Meson -->
+    <style name="makefile:target"            foreground="blue"/>
+    <style name="meson:builtin-command"      foreground="pink"/>
+    <style name="meson:builtin-function"     foreground="blue"/>
+
+    <!-- Config Formats -->
+    <style name="ini:keyword"                foreground="pink"/>
+    <style name="ini:variable"               foreground="cyan"/>
+    <style name="json:keyname"               foreground="pink"/>
+    <style name="toml:key"                   foreground="pink"/>
+    <style name="yaml:key"                   foreground="pink"/>
+    <style name="yaml:scalar"                foreground="green"/>
+
+    <!-- Version Control -->
+    <style name="diff:added-line"            foreground="green" background="#1A2419"/>
+    <style name="diff:changed-line"          foreground="yellow" background="#2A2420"/>
+    <style name="diff:location"              foreground="accent" background="base2" bold="true"/>
+    <style name="diff:removed-line"          foreground="red" background="#2A1F24"/>
+    <style name="diff:special-case"          foreground="pink" bold="true"/>
+
+    <!-- Special Files -->
+    <style name="blueprint-keyword"          foreground="pink"/>
+    <style name="blueprint-property"         foreground="blue"/>
+    <style name="gdb-log"                    foreground="base6"/>
+    <style name="gettext-translation"        foreground="green"/>
+
+    <!-- Infrastructure -->
+    <style name="puppet:node"                foreground="blue"/>
+    <style name="puppet:resource"            foreground="pink"/>
+    <style name="puppet:variable"            foreground="cyan"/>
+    <style name="terraform:provisioner"      foreground="blue"/>
+    <style name="terraform:resource"         foreground="pink"/>
+    <style name="terraform:variable"         foreground="cyan"/>
+</style-scheme>

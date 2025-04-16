@@ -1,0 +1,668 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    SPDX-FileCopyrightText: 2025 Vladimir Kosolapov
+    SPDX-License-Identifier: MIT
+-->
+<language id="cisco" name="Cisco IOS" version="2.0" _section="Other">
+
+    <metadata>
+        <property name="mimetypes">text/x-cisco-conf</property>
+        <property name="globs">*.cfg;*.cis</property>
+        <property name="line-comment-start">!</property>
+    </metadata>
+
+    <styles>
+        <style id="block" name="Block" map-to="def:preprocessor"/>
+        <style id="comment" name="Comment" map-to="def:comment"/>
+        <style id="critical-command" name="Critical Command" map-to="def:note"/>
+        <style id="directive" name="Directive" map-to="def:keyword"/>
+        <style id="interface" name="Interface" map-to="def:special-constant"/>
+        <style id="ip-address" name="IP Address" map-to="def:identifier"/>
+        <style id="keyword" name="Keyword" map-to="def:statement"/>
+        <style id="mac-address" name="MAC Address" map-to="def:preprocessor"/>
+        <style id="number" name="Number" map-to="def:decimal"/>
+        <style id="protocol" name="Protocol" map-to="def:type"/>
+        <style id="router-mode" name="Router Mode" map-to="def:special-char"/>
+        <style id="routing-keyword" name="Routing Keyword" map-to="def:constant"/>
+        <style id="security-keyword" name="Security Keyword" map-to="def:error"/>
+        <style id="security-level" name="Security Level" map-to="def:warning"/>
+        <style id="special-char" name="Escaped Character" map-to="def:special-char"/>
+        <style id="string" name="String" map-to="def:string"/>
+        <style id="variable" name="Variable" map-to="def:type"/>
+        <style id="vlan" name="VLAN" map-to="def:builtin"/>
+    </styles>
+
+    <definitions>
+        <context id="comment" style-ref="comment" end-at-line-end="true" class="comment">
+            <start>!</start>
+        </context>
+
+        <context id="section-header" style-ref="comment" class="comment">
+            <match>^!.*$</match>
+        </context>
+
+        <context id="string" style-ref="string" end-at-line-end="true" class="string">
+            <start>"</start>
+            <end>"</end>
+            <include>
+                <context id="double_escape" style-ref="special-char">
+                    <match>\\(?:"|$)</match>
+                </context>
+                <context ref="variable" />
+            </include>
+        </context>
+
+        <context id="single-string" style-ref="string" end-at-line-end="true" class="string">
+            <start>'</start>
+            <end>'</end>
+            <include>
+                <context id="single_escape" style-ref="special-char">
+                    <match>\\(?:'|\$)</match>
+                </context>
+                <context ref="variable" />
+            </include>
+        </context>
+
+        <context id="multiline-string" style-ref="string" class="string">
+            <start>#</start>
+            <end>#</end>
+        </context>
+
+        <context id="ip-address" style-ref="ip-address" class="path">
+            <match>(?&lt;=\s|^|\=)(?:[0-9]{1,3}\.){3}[0-9]{1,3}(?:/[0-9]{1,2})?(?=\s|$|\.)</match>
+        </context>
+
+        <context id="ip-wildcard" style-ref="ip-address" class="path">
+            <match>(?&lt;=\s)(?:[0-9]{1,3}\.){3}[0-9]{1,3}(?=\s+(?:[0-9]{1,3}\.){3}[0-9]{1,3})</match>
+        </context>
+
+        <context id="subnet-mask" style-ref="ip-address" class="path">
+            <match>\b(255\.)([0-9]{1,3}\.){2}[0-9]{1,3}\b</match>
+        </context>
+
+        <context id="dns-name" style-ref="string" class="path">
+            <match>\b((?:[a-zA-Z0-9](?:[a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,})\b</match>
+        </context>
+
+        <context id="mac-address" style-ref="mac-address" class="path">
+            <match>\b([0-9a-fA-F]{2}[:\.-]){5}[0-9a-fA-F]{2}\b</match>
+        </context>
+
+        <context id="interface" style-ref="interface">
+            <match>\b(?:ATM|BVI|Dialer|Ethernet|FastEthernet|FortyGigE|GigabitEthernet|HundredGigE|Loopback|mgmt|Port-channel|Serial|TenGigabitEthernet|Tunnel|Vlan)[0-9]+(?:/[0-9]+)*(?:\.[0-9]+)?\b</match>
+        </context>
+
+        <context id="vlan" style-ref="vlan">
+            <match>\bvlan\s+[0-9]+(-[0-9]+)?\b</match>
+        </context>
+
+        <context id="decimal" style-ref="number">
+            <match>(?&lt;![\w\.])-?(?:[1-9][0-9]*|0)(?![.eE\w])(?=\s|$)</match>
+        </context>
+
+        <context id="float" style-ref="number">
+            <match>(?&lt;![\w\.])(?:[1-9][0-9]*|0)(?:\.[0-9]+)(?:[eE][+\-]?[0-9]+)?(?![\w])(?=\s|$)</match>
+        </context>
+
+        <context id="port-numbers" style-ref="number">
+            <match>(?&lt;=\s)(eq|gt|lt|neq)\s+(?:(?:[0-9]+)|(?:domain|ftp|https|ntp|pop3|radius|smtp|snmp|ssh|tacacs|telnet|tftp|www))</match>
+        </context>
+
+        <context id="variable" style-ref="variable">
+            <match>\$\{?\w+\}?</match>
+        </context>
+
+        <context id="protocol" style-ref="protocol">
+            <keyword>ahp</keyword>
+            <keyword>bgp</keyword>
+            <keyword>dhcp</keyword>
+            <keyword>dns</keyword>
+            <keyword>eigrp</keyword>
+            <keyword>esp</keyword>
+            <keyword>ftp</keyword>
+            <keyword>http</keyword>
+            <keyword>https</keyword>
+            <keyword>icmp</keyword>
+            <keyword>igmp</keyword>
+            <keyword>imap</keyword>
+            <keyword>ip</keyword>
+            <keyword>ipv6</keyword>
+            <keyword>ipx</keyword>
+            <keyword>isis</keyword>
+            <keyword>ntp</keyword>
+            <keyword>ospf</keyword>
+            <keyword>ospfv3</keyword>
+            <keyword>pop3</keyword>
+            <keyword>rip</keyword>
+            <keyword>ripv2</keyword>
+            <keyword>smtp</keyword>
+            <keyword>snmp</keyword>
+            <keyword>ssh</keyword>
+            <keyword>tcp</keyword>
+            <keyword>telnet</keyword>
+            <keyword>tftp</keyword>
+            <keyword>udp</keyword>
+        </context>
+
+        <context id="full-hyphenated-directive" style-ref="directive">
+            <keyword>auto-summary</keyword>
+            <keyword>boot-end-marker</keyword>
+            <keyword>boot-start-marker</keyword>
+            <keyword>client-identifier</keyword>
+            <keyword>default-gateway</keyword>
+            <keyword>default-information</keyword>
+            <keyword>default-router</keyword>
+            <keyword>dhcp-server</keyword>
+            <keyword>domain-name</keyword>
+            <keyword>hardware-address</keyword>
+            <keyword>log-adjacency-changes</keyword>
+            <keyword>mac-address-table</keyword>
+            <keyword>mac-address</keyword>
+            <keyword>name-server</keyword>
+        </context>
+
+        <context id="security-keywords" style-ref="security-keyword">
+            <match>\b(aaa|access-group|access-list|crypto|deny|permit|radius-server|tacacs-server)\b</match>
+        </context>
+
+        <context id="routing-keywords" style-ref="routing-keyword">
+            <match>\b(area|as-path|autonomous-system|bgp|distance|eigrp|isis|neighbor|network|ospf|redistribute|remote-as|rip|route-map)\b</match>
+        </context>
+
+        <context id="critical-commands" style-ref="critical-command">
+            <match>\b(copy|disable|enable|erase|no|reload|shutdown|write)\b</match>
+        </context>
+
+        <context id="security-level" style-ref="security-level">
+            <match>\bsecret\s+[0-9]\b</match>
+        </context>
+
+        <context id="router-mode" style-ref="router-mode">
+            <match>\brouter\s+(eigrp|ospf|bgp|rip|isis)\s+[0-9]+\b</match>
+        </context>
+
+        <context id="block-context" style-ref="block">
+            <match>{|}</match>
+        </context>
+
+        <context id="access-list-pattern" style-ref="directive">
+            <start>\baccess-list\s+[0-9]+\s+(deny|permit)\s+(ahp|esp|icmp|ip|tcp|udp)</start>
+            <end>$</end>
+            <include>
+                <context sub-pattern="0" where="start" style-ref="directive"/>
+                <context sub-pattern="1" where="start" style-ref="security-keyword"/>
+                <context sub-pattern="2" where="start" style-ref="protocol"/>
+                <context ref="ip-address"/>
+                <context ref="ip-wildcard"/>
+                <context ref="decimal"/>
+            </include>
+        </context>
+
+        <context id="command-with-interface" style-ref="directive">
+            <start>\b(ip\s+(?:nat|radius|route|source-interface)|interface|logging\s+source-interface|source-interface)\s+</start>
+            <end>$</end>
+            <include>
+                <context sub-pattern="0" where="start" style-ref="directive"/>
+                <context id="interface-in-command" style-ref="interface">
+                    <match>\b(?:ATM|BVI|Dialer|Ethernet|FastEthernet|FortyGigE|GigabitEthernet|HundredGigE|Loopback|mgmt|Port-channel|Serial|TenGigabitEthernet|Tunnel|Vlan)[0-9]+(?:/[0-9]+)*(?:\.[0-9]+)?\b</match>
+                </context>
+                <context ref="ip-address"/>
+                <context ref="decimal"/>
+            </include>
+        </context>
+
+        <context id="ip-whole-command" style-ref="directive">
+            <start>\bip\s+(access-group|address|cef|default-gateway|dhcp-server|dhcp\s+excluded-address|directed-broadcast|domain-name|flow|helper-address|host|http|multicast|name-server|ospf|pim|route|routing|ssh)\b</start>
+            <end>$</end>
+            <include>
+                <context sub-pattern="0" where="start" style-ref="directive"/>
+                <context ref="ip-address"/>
+                <context ref="dns-name"/>
+                <context ref="decimal"/>
+            </include>
+        </context>
+
+        <context id="command-sequence" style-ref="directive">
+            <start>\b(clear|configure|debug|neighbor|show)\b</start>
+            <end>$</end>
+            <include>
+                <context sub-pattern="0" where="start" style-ref="directive"/>
+                <context ref="ip-address"/>
+                <context ref="mac-address"/>
+                <context ref="decimal"/>
+                <context ref="float"/>
+                <context ref="variable"/>
+            </include>
+        </context>
+
+        <context id="specific-compound-commands" style-ref="directive">
+            <match>\b(access-class|auto-cost\s+reference-bandwidth|default-information|default-metric|default\s+information|distance|distribute-list\s+in|distribute-list\s+out|ip\s+address|ip\s+helper-address|log-adjacency-changes|max-lsa|maximum-paths|network\s+area|no\s+auto-summary|no\s+synchronization|passive-interface\s+default|redistribute\s+connected|redistribute\s+static|spf\s+timers|standby\s+ip|summary-address|timers\s+throttle\s+lsa|timers\s+throttle\s+spf|tunnel\s+destination|tunnel\s+mode|tunnel\s+source)\b</match>
+        </context>
+
+        <context id="compound-commands" style-ref="directive">
+            <match>\b(access|clear|default|ip|neighbor|no|router|set|show|standby)\s+([\w-]+)((\s+[\w-]+)*)\b</match>
+        </context>
+
+        <context id="hyphenated-keywords" style-ref="directive">
+            <match>\b([a-zA-Z][a-zA-Z0-9_-]+(-[a-zA-Z0-9_-]+)+)\b</match>
+        </context>
+
+        <context id="keyword" style-ref="keyword">
+            <keyword>access-class</keyword>
+            <keyword>access</keyword>
+            <keyword>active</keyword>
+            <keyword>allowed</keyword>
+            <keyword>always</keyword>
+            <keyword>any</keyword>
+            <keyword>area</keyword>
+            <keyword>associate</keyword>
+            <keyword>auto</keyword>
+            <keyword>aux</keyword>
+            <keyword>backup</keyword>
+            <keyword>bandwidth</keyword>
+            <keyword>bidirectional</keyword>
+            <keyword>both</keyword>
+            <keyword>channel</keyword>
+            <keyword>class</keyword>
+            <keyword>client</keyword>
+            <keyword>configure</keyword>
+            <keyword>connected</keyword>
+            <keyword>console</keyword>
+            <keyword>debug</keyword>
+            <keyword>default</keyword>
+            <keyword>demote</keyword>
+            <keyword>description</keyword>
+            <keyword>designated</keyword>
+            <keyword>destination</keyword>
+            <keyword>disable</keyword>
+            <keyword>discard</keyword>
+            <keyword>distribute</keyword>
+            <keyword>dot1q</keyword>
+            <keyword>drop</keyword>
+            <keyword>duplex</keyword>
+            <keyword>dynamic</keyword>
+            <keyword>echo-reply</keyword>
+            <keyword>echo</keyword>
+            <keyword>enable</keyword>
+            <keyword>encapsulation</keyword>
+            <keyword>encrypted</keyword>
+            <keyword>eq</keyword>
+            <keyword>established</keyword>
+            <keyword>exclude</keyword>
+            <keyword>exec</keyword>
+            <keyword>export</keyword>
+            <keyword>extended</keyword>
+            <keyword>external</keyword>
+            <keyword>filter</keyword>
+            <keyword>first</keyword>
+            <keyword>full-duplex</keyword>
+            <keyword>global</keyword>
+            <keyword>group</keyword>
+            <keyword>gt</keyword>
+            <keyword>half-duplex</keyword>
+            <keyword>hash</keyword>
+            <keyword>help</keyword>
+            <keyword>hidden</keyword>
+            <keyword>high</keyword>
+            <keyword>history</keyword>
+            <keyword>host</keyword>
+            <keyword>import</keyword>
+            <keyword>in</keyword>
+            <keyword>inactive</keyword>
+            <keyword>include</keyword>
+            <keyword>input</keyword>
+            <keyword>inside</keyword>
+            <keyword>interval</keyword>
+            <keyword>isl</keyword>
+            <keyword>last</keyword>
+            <keyword>local</keyword>
+            <keyword>log</keyword>
+            <keyword>login</keyword>
+            <keyword>low</keyword>
+            <keyword>lt</keyword>
+            <keyword>management</keyword>
+            <keyword>map</keyword>
+            <keyword>mask</keyword>
+            <keyword>match</keyword>
+            <keyword>medium</keyword>
+            <keyword>message</keyword>
+            <keyword>metric</keyword>
+            <keyword>minimum</keyword>
+            <keyword>mode</keyword>
+            <keyword>model</keyword>
+            <keyword>monitor</keyword>
+            <keyword>motd</keyword>
+            <keyword>mtu</keyword>
+            <keyword>multicast</keyword>
+            <keyword>multiple</keyword>
+            <keyword>name</keyword>
+            <keyword>negotiate</keyword>
+            <keyword>neq</keyword>
+            <keyword>never</keyword>
+            <keyword>not</keyword>
+            <keyword>number</keyword>
+            <keyword>off</keyword>
+            <keyword>on</keyword>
+            <keyword>only</keyword>
+            <keyword>originate</keyword>
+            <keyword>out</keyword>
+            <keyword>output</keyword>
+            <keyword>outside</keyword>
+            <keyword>owner</keyword>
+            <keyword>passive</keyword>
+            <keyword>password</keyword>
+            <keyword>point-to-point</keyword>
+            <keyword>policy</keyword>
+            <keyword>port</keyword>
+            <keyword>preempt</keyword>
+            <keyword>preferred</keyword>
+            <keyword>prefix</keyword>
+            <keyword>primary</keyword>
+            <keyword>priority</keyword>
+            <keyword>profile</keyword>
+            <keyword>range</keyword>
+            <keyword>redirect</keyword>
+            <keyword>secondary</keyword>
+            <keyword>secret</keyword>
+            <keyword>server</keyword>
+            <keyword>session</keyword>
+            <keyword>set</keyword>
+            <keyword>source-quench</keyword>
+            <keyword>source</keyword>
+            <keyword>speed</keyword>
+            <keyword>standard</keyword>
+            <keyword>state</keyword>
+            <keyword>static</keyword>
+            <keyword>status</keyword>
+            <keyword>switchport</keyword>
+            <keyword>system</keyword>
+            <keyword>tag</keyword>
+            <keyword>target</keyword>
+            <keyword>timeout</keyword>
+            <keyword>traceroute</keyword>
+            <keyword>translate</keyword>
+            <keyword>transport</keyword>
+            <keyword>trunk</keyword>
+            <keyword>type</keyword>
+            <keyword>unicast</keyword>
+            <keyword>unreachable</keyword>
+            <keyword>update</keyword>
+            <keyword>use</keyword>
+            <keyword>verify</keyword>
+            <keyword>virtual</keyword>
+            <keyword>vty</keyword>
+            <keyword>weight</keyword>
+            <keyword>wildcard</keyword>
+        </context>
+
+        <context id="directive" style-ref="directive">
+            <keyword>aaa-server</keyword>
+            <keyword>aaa</keyword>
+            <keyword>access-enable</keyword>
+            <keyword>access-list</keyword>
+            <keyword>access-template</keyword>
+            <keyword>address</keyword>
+            <keyword>alias</keyword>
+            <keyword>appletalk</keyword>
+            <keyword>arp</keyword>
+            <keyword>async-bootp</keyword>
+            <keyword>banner</keyword>
+            <keyword>bba-group</keyword>
+            <keyword>boot</keyword>
+            <keyword>bridge</keyword>
+            <keyword>buffers</keyword>
+            <keyword>busy-message</keyword>
+            <keyword>call-history-mib</keyword>
+            <keyword>caller-id</keyword>
+            <keyword>cdp</keyword>
+            <keyword>certificate</keyword>
+            <keyword>chat-script</keyword>
+            <keyword>class-map</keyword>
+            <keyword>clock</keyword>
+            <keyword>cns</keyword>
+            <keyword>config-register</keyword>
+            <keyword>control-plane</keyword>
+            <keyword>controller</keyword>
+            <keyword>crypto-engine</keyword>
+            <keyword>crypto</keyword>
+            <keyword>default-value</keyword>
+            <keyword>default</keyword>
+            <keyword>dialer-list</keyword>
+            <keyword>dialer</keyword>
+            <keyword>distribute-list</keyword>
+            <keyword>dnsix-dmdp</keyword>
+            <keyword>dnsix-nat</keyword>
+            <keyword>do</keyword>
+            <keyword>dot11</keyword>
+            <keyword>downward-compatible-config</keyword>
+            <keyword>enable</keyword>
+            <keyword>end</keyword>
+            <keyword>errdisable</keyword>
+            <keyword>event-handler</keyword>
+            <keyword>exception</keyword>
+            <keyword>exit</keyword>
+            <keyword>failover</keyword>
+            <keyword>fair-queue</keyword>
+            <keyword>file</keyword>
+            <keyword>frame-relay</keyword>
+            <keyword>group-policy</keyword>
+            <keyword>group-range</keyword>
+            <keyword>help</keyword>
+            <keyword>hostname</keyword>
+            <keyword>inspection</keyword>
+            <keyword>interface</keyword>
+            <keyword>ip-prefix-list</keyword>
+            <keyword>ip</keyword>
+            <keyword>ipv6-prefix-list</keyword>
+            <keyword>ipv6</keyword>
+            <keyword>isdn-mib</keyword>
+            <keyword>isdn</keyword>
+            <keyword>keepalive</keyword>
+            <keyword>kerberos</keyword>
+            <keyword>key-chain</keyword>
+            <keyword>key</keyword>
+            <keyword>lease</keyword>
+            <keyword>line</keyword>
+            <keyword>link-status</keyword>
+            <keyword>lldp</keyword>
+            <keyword>logging</keyword>
+            <keyword>login-string</keyword>
+            <keyword>map-class</keyword>
+            <keyword>map-list</keyword>
+            <keyword>memory-size</keyword>
+            <keyword>menu</keyword>
+            <keyword>modemcap</keyword>
+            <keyword>multilink</keyword>
+            <keyword>netbios</keyword>
+            <keyword>nhrp</keyword>
+            <keyword>no</keyword>
+            <keyword>ntp</keyword>
+            <keyword>object-group</keyword>
+            <keyword>object</keyword>
+            <keyword>partition</keyword>
+            <keyword>passive-interface</keyword>
+            <keyword>pbr</keyword>
+            <keyword>peer-group</keyword>
+            <keyword>peer-policy</keyword>
+            <keyword>peer-session</keyword>
+            <keyword>phone-proxy</keyword>
+            <keyword>phy</keyword>
+            <keyword>policy-map</keyword>
+            <keyword>ppp</keyword>
+            <keyword>prefix-list</keyword>
+            <keyword>priority-list</keyword>
+            <keyword>privilege</keyword>
+            <keyword>process-max-time</keyword>
+            <keyword>prompt</keyword>
+            <keyword>qos-group</keyword>
+            <keyword>qos</keyword>
+            <keyword>queue-list</keyword>
+            <keyword>redundancy</keyword>
+            <keyword>reload</keyword>
+            <keyword>resume-string</keyword>
+            <keyword>rlogin</keyword>
+            <keyword>rmon</keyword>
+            <keyword>route-map</keyword>
+            <keyword>route-reflector-client</keyword>
+            <keyword>route-target</keyword>
+            <keyword>router-id</keyword>
+            <keyword>router</keyword>
+            <keyword>rtr</keyword>
+            <keyword>sccp</keyword>
+            <keyword>scheduler</keyword>
+            <keyword>sdm</keyword>
+            <keyword>self-identity</keyword>
+            <keyword>service-policy</keyword>
+            <keyword>service</keyword>
+            <keyword>sip</keyword>
+            <keyword>snmp-server</keyword>
+            <keyword>snmp</keyword>
+            <keyword>sntp</keyword>
+            <keyword>spanning-tree</keyword>
+            <keyword>stackmaker</keyword>
+            <keyword>standby</keyword>
+            <keyword>state-machine</keyword>
+            <keyword>storm-control</keyword>
+            <keyword>subscriber-policy</keyword>
+            <keyword>tacacs-server</keyword>
+            <keyword>template</keyword>
+            <keyword>terminal-queue</keyword>
+            <keyword>tftp-server</keyword>
+            <keyword>time-range</keyword>
+            <keyword>timers</keyword>
+            <keyword>track</keyword>
+            <keyword>traffic-shape</keyword>
+            <keyword>tunnel-group</keyword>
+            <keyword>username</keyword>
+            <keyword>virtual-profile</keyword>
+            <keyword>virtual-template</keyword>
+            <keyword>vlan</keyword>
+            <keyword>voice-card</keyword>
+            <keyword>voice-port</keyword>
+            <keyword>vpdn-group</keyword>
+            <keyword>vpdn</keyword>
+            <keyword>vpn-group-policy</keyword>
+            <keyword>vpn-tunnel-protocol</keyword>
+            <keyword>vrf</keyword>
+            <keyword>vtp</keyword>
+            <keyword>x25</keyword>
+            <keyword>x29</keyword>
+        </context>
+
+        <context id="ip-directives" style-ref="directive">
+            <keyword>accounting-list</keyword>
+            <keyword>accounting-threshold</keyword>
+            <keyword>accounting-transits</keyword>
+            <keyword>accounting</keyword>
+            <keyword>address-pool</keyword>
+            <keyword>as-path</keyword>
+            <keyword>audit</keyword>
+            <keyword>auth-proxy</keyword>
+            <keyword>authentication</keyword>
+            <keyword>authorization</keyword>
+            <keyword>bgp-community</keyword>
+            <keyword>bootp</keyword>
+            <keyword>cef</keyword>
+            <keyword>classless</keyword>
+            <keyword>community-list</keyword>
+            <keyword>default-gateway</keyword>
+            <keyword>default-network</keyword>
+            <keyword>dhcp-server</keyword>
+            <keyword>dhcp</keyword>
+            <keyword>domain-list</keyword>
+            <keyword>domain-lookup</keyword>
+            <keyword>domain-name</keyword>
+            <keyword>dvmrp</keyword>
+            <keyword>exec-callback</keyword>
+            <keyword>extcommunity-list</keyword>
+            <keyword>finger</keyword>
+            <keyword>flow-aggregation</keyword>
+            <keyword>flow-cache</keyword>
+            <keyword>flow-export</keyword>
+            <keyword>forward-protocol</keyword>
+            <keyword>ftp</keyword>
+            <keyword>gratuitous-arps</keyword>
+            <keyword>host-routing</keyword>
+            <keyword>host</keyword>
+            <keyword>hp-host</keyword>
+            <keyword>http</keyword>
+            <keyword>inspect</keyword>
+            <keyword>local</keyword>
+            <keyword>mrm</keyword>
+            <keyword>mroute</keyword>
+            <keyword>msdp</keyword>
+            <keyword>multicast-routing</keyword>
+            <keyword>multicast</keyword>
+            <keyword>name-server</keyword>
+            <keyword>nat</keyword>
+            <keyword>new-model</keyword>
+            <keyword>ospf</keyword>
+            <keyword>password-encryption</keyword>
+            <keyword>password</keyword>
+            <keyword>pgm</keyword>
+            <keyword>pim</keyword>
+            <keyword>port-map</keyword>
+            <keyword>prefix-list</keyword>
+            <keyword>radius</keyword>
+            <keyword>rcmd</keyword>
+            <keyword>reflexive-list</keyword>
+            <keyword>route</keyword>
+            <keyword>routing</keyword>
+            <keyword>rsvp</keyword>
+            <keyword>rtcp</keyword>
+            <keyword>sap</keyword>
+            <keyword>sdr</keyword>
+            <keyword>security</keyword>
+            <keyword>source-route</keyword>
+            <keyword>subnet-zero</keyword>
+            <keyword>tacacs</keyword>
+            <keyword>tcp-small-servers</keyword>
+            <keyword>tcp</keyword>
+            <keyword>telnet</keyword>
+            <keyword>tftp</keyword>
+            <keyword>timestamps</keyword>
+            <keyword>udp-small-servers</keyword>
+            <keyword>vrf</keyword>
+            <keyword>wccp</keyword>
+        </context>
+
+        <context id="cisco">
+            <include>
+                <context ref="comment"/>
+                <context ref="section-header"/>
+                <context ref="string"/>
+                <context ref="single-string"/>
+                <context ref="multiline-string"/>
+                <context ref="ip-address"/>
+                <context ref="ip-wildcard"/>
+                <context ref="subnet-mask"/>
+                <context ref="dns-name"/>
+                <context ref="mac-address"/>
+                <context ref="interface"/>
+                <context ref="vlan"/>
+                <context ref="decimal"/>
+                <context ref="float"/>
+                <context ref="port-numbers"/>
+                <context ref="variable"/>
+                <context ref="protocol"/>
+                <context ref="full-hyphenated-directive"/>
+                <context ref="security-keywords"/>
+                <context ref="routing-keywords"/>
+                <context ref="critical-commands"/>
+                <context ref="security-level"/>
+                <context ref="router-mode"/>
+                <context ref="block-context"/>
+                <context ref="access-list-pattern"/>
+                <context ref="command-with-interface"/>
+                <context ref="ip-whole-command"/>
+                <context ref="command-sequence"/>
+                <context ref="specific-compound-commands"/>
+                <context ref="compound-commands"/>
+                <context ref="hyphenated-keywords"/>
+                <context ref="keyword"/>
+                <context ref="directive"/>
+                <context ref="ip-directives"/>
+            </include>
+        </context>
+    </definitions>
+</language>
