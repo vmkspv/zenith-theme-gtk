@@ -79,7 +79,6 @@ show_help() {
     echo "  --theme           install the Zenith theme only"
     echo "  --langs           install language definitions only"
     echo "  --full            install both theme and language definitions"
-    echo "  --help            show this help message and exit"
     exit 0
 }
 
@@ -109,11 +108,7 @@ while [[ $# -gt 0 ]]; do
             INSTALL_LANGS=true
             shift
             ;;
-        --help)
-            show_help
-            ;;
         *)
-            echo
             print_error "Unknown option: $1"
             exit 1
             ;;
