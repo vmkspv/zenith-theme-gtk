@@ -50,25 +50,27 @@
     <color name="yellow"                     value="#d6b867"/>
 
     <!-- Global Styles -->
-    <style name="background-pattern"         background="base2"/>
+    <style name="background-pattern"         background="#1c2024"/>
     <style name="bracket-match"              foreground="accent" background="accent3" bold="true"/>
-    <style name="bracket-mismatch"           foreground="red" background="#2A1F24" bold="true"/>
+    <style name="bracket-mismatch"           foreground="red" background="#2a1f24" bold="true"/>
     <style name="current-line"               background="base2"/>
     <style name="current-line-number"        foreground="accent" background="base2"/>
     <style name="cursor"                     foreground="accent"/>
     <style name="draw-spaces"                foreground="base4"/>
     <style name="line-numbers"               foreground="base5" background="base1"/>
     <style name="map-overlay"                background="base3"/>
+    <style name="right-margin"               foreground="base6" background="base5"/>
     <style name="search-match"               background="accent3" foreground="base7"/>
     <style name="selection"                  background="accent3" foreground="base7"/>
     <style name="text"                       foreground="base7" background="base1"/>
 
     <!-- Diagnostics -->
-    <style name="def:error"                  foreground="red" background="#2A1F24" underline="error" bold="true"/>
-    <style name="def:note"                   foreground="blue" background="#1F242A" underline="info"/>
+    <style name="def:error"                  foreground="red" background="#2a1f24" underline="error" bold="true"/>
+    <style name="def:misspelled-word"        underline="single" underline-color="#b67554"/>
+    <style name="def:note"                   foreground="blue" background="#1f242a" underline="info"/>
     <style name="def:underline"              underline="single"/>
-    <style name="def:warning"                foreground="orange" background="#2A2420" underline="warning"/>
-    <style name="diagnostics:deprecated"     foreground="pink" background="#2A1F26" underline="error"/>
+    <style name="def:warning"                foreground="orange" background="#2a2420" underline="warning"/>
+    <style name="diagnostics:deprecated"     foreground="pink" background="#2a1f26" underline="error"/>
 
     <!-- Core Syntax -->
     <style name="def:comment"                foreground="base5" italic="true"/>
@@ -310,10 +312,10 @@
     <style name="yaml:scalar"                foreground="green"/>
 
     <!-- Version Control -->
-    <style name="diff:added-line"            foreground="green" background="#1A2419"/>
-    <style name="diff:changed-line"          foreground="yellow" background="#2A2420"/>
+    <style name="diff:added-line"            foreground="green" background="#1a2419"/>
+    <style name="diff:changed-line"          foreground="yellow" background="#2a2420"/>
     <style name="diff:location"              foreground="accent" background="base2" bold="true"/>
-    <style name="diff:removed-line"          foreground="red" background="#2A1F24"/>
+    <style name="diff:removed-line"          foreground="red" background="#2a1f24"/>
     <style name="diff:special-case"          foreground="pink" bold="true"/>
 
     <!-- Special Files -->
