@@ -22,7 +22,27 @@ The repository contains:
    - [`nginx.lang`](gtksourceview-5/language-specs/nginx.lang): syntax highlighting for Nginx configuration files;
    - [`cisco.lang`](gtksourceview-5/language-specs/cisco.lang): syntax highlighting for Cisco IOS/IOS XE/NX-OS configuration files.
 
-## Color Palette
+## Installation
+
+You can install the Zenith theme and language definitions using a script:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/vmkspv/zenith-theme-gtk/main/install.sh | bash -s -- --full
+```
+
+### Script options
+
+Use the `--theme` or `--langs` flags to install only required components:
+
+```bash
+# Install the Zenith theme only
+curl -fsSL https://raw.githubusercontent.com/vmkspv/zenith-theme-gtk/main/install.sh | bash -s -- --theme
+
+# Install language definitions only
+curl -fsSL https://raw.githubusercontent.com/vmkspv/zenith-theme-gtk/main/install.sh | bash -s -- --langs
+```
+
+## Color palette
 
 | Element           | Color   | Usage                                 |
 |-------------------|---------|---------------------------------------|
