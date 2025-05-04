@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    SPDX-FileCopyrightText: 2025 Vladimir Kosolapov
+    SPDX-License-Identifier: MIT
+-->
+<language id="fstab" name="fstab" version="2.0" _section="Other">
+
+    <metadata>
+        <property name="mimetypes">text/x-fstab</property>
+        <property name="globs">*.fstab;fstab</property>
+        <property name="line-comment-start">#</property>
+    </metadata>
+
+    <styles>
+        <style id="block" name="Block" map-to="def:preprocessor"/>
+        <style id="comment" name="Comment" map-to="def:comment"/>
+        <style id="device" name="Device" map-to="def:identifier"/>
+        <style id="error" name="Error" map-to="def:error"/>
+        <style id="filesystem" name="File System" map-to="def:type"/>
+        <style id="identifier" name="Device Identifier" map-to="def:preprocessor"/>
+        <style id="mountpoint" name="Mount Point" map-to="def:string"/>
+        <style id="number" name="Number" map-to="def:decimal"/>
+        <style id="option" name="Mount Option" map-to="def:statement"/>
+        <style id="path" name="Path" map-to="def:string"/>
+        <style id="special-device" name="Special Device" map-to="def:special-constant"/>
+        <style id="special-char" name="Escaped Character" map-to="def:special-char"/>
+        <style id="user" name="User" map-to="def:identifier"/>
+        <style id="value" name="Value" map-to="def:constant"/>
+    </styles>
+
+    <definitions>
+        <context id="comment" style-ref="comment" end-at-line-end="true" class="comment">
+            <start>(^|\s)#</start>
+        </context>
+
+        <context id="number" style-ref="number">
+            <match>\b[0-2]\b</match>
+        </context>
+
+        <context id="device-identifier" style-ref="identifier">
+            <match>(UUID=[a-fA-F0-9-]+|(ID|LABEL|PARTLABEL)=[a-zA-Z0-9_-]+(\\[0-7]{3}[a-zA-Z0-9_-]*)*|PARTUUID=[a-fA-F0-9-]+)</match>
+        </context>
+
+        <context id="device-path" style-ref="device">
+            <match>(\/dev\/[a-zA-Z0-9/_-]+|\/dev\/mapper\/[a-zA-Z0-9._-]+|\/dev\/disk\/by-[a-z]+\/[^\s]+)</match>
+        </context>
+
+        <context id="network-path" style-ref="device">
+            <match>(sshfs)?#?[a-zA-Z0-9][a-zA-Z0-9._-]*@[a-zA-Z0-9][a-zA-Z0-9.-]*:\/[^\s]+|\/\/[^\s]+</match>
+        </context>
+
+        <context id="special-device" style-ref="special-device">
+            <keyword>devpts</keyword>
+            <keyword>none</keyword>
+            <keyword>proc</keyword>
+            <keyword>sshfs</keyword>
+            <keyword>swap</keyword>
+            <keyword>sysfs</keyword>
+            <keyword>tmpfs</keyword>
+        </context>
+
+        <context id="mountpoint" style-ref="mountpoint">
+            <match>\/([^\s\\]|(\\[0-7]{3}))*</match>
+        </context>
+
+        <context id="filesystem" style-ref="filesystem">
+            <keyword>auto</keyword>
+            <keyword>bind</keyword>
+            <keyword>btrfs</keyword>
+            <keyword>cifs</keyword>
+            <keyword>devpts</keyword>
+            <keyword>exfat</keyword>
+            <keyword>ext[234]</keyword>
+            <keyword>f2fs</keyword>
+            <keyword>fuse(\.[a-z]+)?</keyword>
+            <keyword>hfsplus</keyword>
+            <keyword>iso9660</keyword>
+            <keyword>nfs[4]?</keyword>
+            <keyword>ntfs(-3g)?</keyword>
+            <keyword>proc</keyword>
+            <keyword>squashfs</keyword>
+            <keyword>swap</keyword>
+            <keyword>sysfs</keyword>
+            <keyword>tmpfs</keyword>
+            <keyword>udf</keyword>
+            <keyword>vfat</keyword>
+            <keyword>xfs</keyword>
+            <keyword>zfs</keyword>
+        </context>
+
+        <context id="mount-option" style-ref="option">
+            <keyword>_netdev</keyword>
+            <keyword>acl</keyword>
+            <keyword>allow_other</keyword>
+            <keyword>async</keyword>
+            <keyword>atime</keyword>
+            <keyword>auto</keyword>
+            <keyword>autodefrag</keyword>
+            <keyword>barrier(?==)</keyword>
+            <keyword>check(?==)</keyword>
+            <keyword>codepage(?==)</keyword>
+            <keyword>commit(?==)</keyword>
+            <keyword>compress</keyword>
+            <keyword>credentials(?==)</keyword>
+            <keyword>data(?==)</keyword>
+            <keyword>default_permissions</keyword>
+            <keyword>defaults</keyword>
+            <keyword>dev</keyword>
+            <keyword>diratime</keyword>
+            <keyword>directio(?==)</keyword>
+            <keyword>dirsync</keyword>
+            <keyword>discard</keyword>
+            <keyword>dmask(?==)</keyword>
+            <keyword>dmode(?==)</keyword>
+            <keyword>errors(?==)</keyword>
+            <keyword>errors</keyword>
+            <keyword>exec</keyword>
+            <keyword>fmask(?==)</keyword>
+            <keyword>fmode(?==)</keyword>
+            <keyword>follow_symlinks</keyword>
+            <keyword>gid(?==)</keyword>
+            <keyword>group</keyword>
+            <keyword>identityfile(?==)</keyword>
+            <keyword>idmap(?==)</keyword>
+            <keyword>iocharset(?==)</keyword>
+            <keyword>journal(?==)</keyword>
+            <keyword>lazytime</keyword>
+            <keyword>loop</keyword>
+            <keyword>mand</keyword>
+            <keyword>mode(?==)</keyword>
+            <keyword>nls(?==)</keyword>
+            <keyword>noacl</keyword>
+            <keyword>noatime</keyword>
+            <keyword>noauto</keyword>
+            <keyword>nodev</keyword>
+            <keyword>nodiratime</keyword>
+            <keyword>noexec</keyword>
+            <keyword>nofail</keyword>
+            <keyword>nomand</keyword>
+            <keyword>noperm</keyword>
+            <keyword>norelatime</keyword>
+            <keyword>nostrictatime</keyword>
+            <keyword>nosuid</keyword>
+            <keyword>nouser_xattr</keyword>
+            <keyword>nouser</keyword>
+            <keyword>owner</keyword>
+            <keyword>perm</keyword>
+            <keyword>relatime</keyword>
+            <keyword>remount-ro</keyword>
+            <keyword>retrans(?==)</keyword>
+            <keyword>ro</keyword>
+            <keyword>rsize(?==)</keyword>
+            <keyword>rw</keyword>
+            <keyword>sec(?==)</keyword>
+            <keyword>shortname(?==)</keyword>
+            <keyword>space_cache</keyword>
+            <keyword>strictatime</keyword>
+            <keyword>stripe(?==)</keyword>
+            <keyword>subvol(?==)</keyword>
+            <keyword>suid</keyword>
+            <keyword>sw</keyword>
+            <keyword>sync</keyword>
+            <keyword>timeo(?==)</keyword>
+            <keyword>transform_symlinks</keyword>
+            <keyword>uid(?==)</keyword>
+            <keyword>umask(?==)</keyword>
+            <keyword>user_xattr</keyword>
+            <keyword>user</keyword>
+            <keyword>users</keyword>
+            <keyword>utf8</keyword>
+            <keyword>vers(?==)</keyword>
+            <keyword>windows_names</keyword>
+            <keyword>wsize(?==)</keyword>
+            <keyword>x-systemd\.automount</keyword>
+            <keyword>x-systemd\.device-timeout</keyword>
+            <keyword>x-systemd\.idle-timeout</keyword>
+            <keyword>x-systemd\.mount-timeout</keyword>
+        </context>
+
+        <context id="option-value" style-ref="value">
+            <match>(?&lt;==)[a-zA-Z0-9/_.-]+</match>
+        </context>
+
+        <context id="path-value" style-ref="path">
+            <match>(?&lt;==)/[^\s,]+</match>
+        </context>
+
+        <context id="fstab">
+            <include>
+                <context ref="comment"/>
+                <context ref="number"/>
+                <context ref="device-identifier"/>
+                <context ref="device-path"/>
+                <context ref="network-path"/>
+                <context ref="special-device"/>
+                <context ref="mountpoint"/>
+                <context ref="filesystem"/>
+                <context ref="mount-option"/>
+                <context ref="option-value"/>
+                <context ref="path-value"/>
+            </include>
+        </context>
+    </definitions>
+</language>
