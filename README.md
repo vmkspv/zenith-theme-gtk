@@ -20,7 +20,8 @@ The repository contains:
 1. A GtkSourceView 5 theme ([zenith.xml](gtksourceview-5/styles/zenith.xml)) with a carefully curated color palette.
 2. Custom language definitions not included in the GtkSourceView 5 package:
    - [`nginx.lang`](gtksourceview-5/language-specs/nginx.lang): syntax highlighting for Nginx configuration files;
-   - [`cisco.lang`](gtksourceview-5/language-specs/cisco.lang): syntax highlighting for Cisco IOS/IOS XE/NX-OS configuration files.
+   - [`cisco.lang`](gtksourceview-5/language-specs/cisco.lang): syntax highlighting for Cisco IOS/IOS XE/NX-OS configuration files;
+   - [`fstab.lang`](gtksourceview-5/language-specs/fstab.lang): syntax highlighting for filesystem table (fstab) configuration file.
 
 ## Installation
 

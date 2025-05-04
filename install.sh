@@ -53,7 +53,7 @@ install_languages() {
     create_directory "$DEFAULT_LANGS_PATH"
 
     local success=true
-    local lang_specs=("nginx.lang" "cisco.lang")
+    local lang_specs=("nginx.lang" "cisco.lang" "fstab.lang")
 
     for lang in "${lang_specs[@]}"; do
         if download_file "$REPO_RAW/gtksourceview-5/language-specs/$lang" "$DEFAULT_LANGS_PATH/$lang"; then
