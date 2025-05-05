@@ -57,11 +57,14 @@
     <style name="current-line-number"        foreground="accent" background="base2"/>
     <style name="cursor"                     foreground="accent"/>
     <style name="draw-spaces"                foreground="base4"/>
-    <style name="line-numbers"               foreground="base5" background="base1"/>
+    <style name="line-numbers"               foreground="base5"/>
     <style name="map-overlay"                background="base3"/>
     <style name="right-margin"               foreground="base6" background="base5"/>
     <style name="search-match"               background="accent3" foreground="base7"/>
+    <style name="secondary-cursor"           foreground="base7"/>
     <style name="selection"                  background="accent3" foreground="base7"/>
+    <style name="selection-unfocused"        background="base3" foreground="base6"/>
+    <style name="snippet-focus"              background="base3"/>
     <style name="text"                       foreground="base7" background="base1"/>
 
     <!-- Diagnostics -->
@@ -117,6 +120,7 @@
 
     <!-- C Family -->
     <style name="c:included-file"            foreground="green"/>
+    <style name="c:included-relative-file"   foreground="green"/>
     <style name="c:macro-name"               foreground="blue" bold="true"/>
     <style name="c:preprocessor"             foreground="pink"/>
     <style name="c:storage-class"            foreground="pink"/>
