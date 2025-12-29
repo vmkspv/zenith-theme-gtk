@@ -22,6 +22,7 @@ The repository contains:
    - [`nginx.lang`](gtksourceview-5/language-specs/nginx.lang): syntax highlighting for Nginx configuration files;
    - [`cisco.lang`](gtksourceview-5/language-specs/cisco.lang): syntax highlighting for Cisco IOS/IOS XE/NX-OS configuration files;
    - [`fstab.lang`](gtksourceview-5/language-specs/fstab.lang): syntax highlighting for filesystem table (fstab) configuration file.
+3. A color palette for [Ptyxis](https://gitlab.gnome.org/chergert/ptyxis) terminal ([zenith.palette](org.gnome.Ptyxis/palettes/zenith.palette)) that matches the theme’s color scheme.
 
 ## Installation
 
@@ -33,7 +34,7 @@ curl -fsSL https://raw.githubusercontent.com/vmkspv/zenith-theme-gtk/main/instal
 
 ### Script options
 
-Use the `--theme` or `--langs` flags to install only required components:
+Use the `--theme`, `--langs`, or `--ptyxis` flags to install only required components:
 
 ```bash
 # Install the Zenith theme only
@@ -41,6 +42,9 @@ curl -fsSL https://raw.githubusercontent.com/vmkspv/zenith-theme-gtk/main/instal
 
 # Install language definitions only
 curl -fsSL https://raw.githubusercontent.com/vmkspv/zenith-theme-gtk/main/install.sh | bash -s -- --langs
+
+# Install the color palette for Ptyxis only
+curl -fsSL https://raw.githubusercontent.com/vmkspv/zenith-theme-gtk/main/install.sh | bash -s -- --ptyxis
 ```
 
 ## Color palette

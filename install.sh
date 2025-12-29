@@ -15,6 +15,7 @@ print_info() { echo -e "${GRAY}[i]${NC} $1"; }
 REPO_RAW="https://raw.githubusercontent.com/vmkspv/zenith-theme-gtk/main"
 DEFAULT_THEME_PATH="${HOME}/.local/share/gtksourceview-5/styles"
 DEFAULT_LANGS_PATH="${HOME}/.local/share/gtksourceview-5/language-specs"
+DEFAULT_PTYXIS_PATH="${HOME}/.local/share/org.gnome.Ptyxis/palettes"
 
 create_directory() {
     local dir=$1
@@ -72,13 +73,26 @@ install_languages() {
     fi
 }
 
+install_ptyxis() {
+    print_step "Installing the color palette for Ptyxis..."
+    create_directory "$DEFAULT_PTYXIS_PATH"
+
+    if download_file "$REPO_RAW/org.gnome.Ptyxis/palettes/zenith.palette" "$DEFAULT_PTYXIS_PATH/zenith.palette"; then
+        print_success "The color palette for Ptyxis installed successfully"
+    else
+        print_error "Failed to install the color palette for Ptyxis"
+        return 1
+    fi
+}
+
 show_help() {
     echo "usage: $0 [OPTIONS]"
     echo
     echo "options:"
     echo "  --theme           install the Zenith theme only"
     echo "  --langs           install language definitions only"
-    echo "  --full            install both theme and language definitions"
+    echo "  --ptyxis          install the color palette for Ptyxis only"
+    echo "  --full            install theme, language definitions, and Ptyxis palette"
     exit 0
 }
 
@@ -88,6 +102,7 @@ echo
 
 INSTALL_THEME=false
 INSTALL_LANGS=false
+INSTALL_PTYXIS=false
 
 if [ $# -eq 0 ]; then
     show_help
@@ -103,9 +118,14 @@ while [[ $# -gt 0 ]]; do
             INSTALL_LANGS=true
             shift
             ;;
+        --ptyxis)
+            INSTALL_PTYXIS=true
+            shift
+            ;;
         --full)
             INSTALL_THEME=true
             INSTALL_LANGS=true
+            INSTALL_PTYXIS=true
             shift
             ;;
         *)
@@ -121,6 +141,10 @@ fi
 
 if [ "$INSTALL_LANGS" = true ]; then
     install_languages
+fi
+
+if [ "$INSTALL_PTYXIS" = true ]; then
+    install_ptyxis
 fi
 
 echo
