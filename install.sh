@@ -14,7 +14,6 @@ print_info() { echo -e "${GRAY}[i]${NC} $1"; }
 
 REPO_RAW="https://raw.githubusercontent.com/vmkspv/zenith-theme-gtk/main"
 DEFAULT_THEME_PATH="${HOME}/.local/share/gtksourceview-5/styles"
-DEFAULT_LANGS_PATH="${HOME}/.local/share/gtksourceview-5/language-specs"
 DEFAULT_PTYXIS_PATH="${HOME}/.local/share/org.gnome.Ptyxis/palettes"
 
 create_directory() {
@@ -49,30 +48,6 @@ install_theme() {
     fi
 }
 
-install_languages() {
-    print_step "Installing language definitions..."
-    create_directory "$DEFAULT_LANGS_PATH"
-
-    local success=true
-    local lang_specs=("nginx.lang" "cisco.lang" "fstab.lang")
-
-    for lang in "${lang_specs[@]}"; do
-        if download_file "$REPO_RAW/gtksourceview-5/language-specs/$lang" "$DEFAULT_LANGS_PATH/$lang"; then
-            print_success "Installed: $lang"
-        else
-            print_error "Failed to install: $lang"
-            success=false
-        fi
-    done
-
-    if [ "$success" = true ]; then
-        print_success "Language definitions installed successfully"
-    else
-        print_error "Failed to install language definitions"
-        return 1
-    fi
-}
-
 install_ptyxis() {
     print_step "Installing the color palette for Ptyxis..."
     create_directory "$DEFAULT_PTYXIS_PATH"
@@ -90,9 +65,8 @@ show_help() {
     echo
     echo "options:"
     echo "  --theme           install the Zenith theme only"
-    echo "  --langs           install language definitions only"
     echo "  --ptyxis          install the color palette for Ptyxis only"
-    echo "  --full            install theme, language definitions, and Ptyxis palette"
+    echo "  --full            install the theme and Ptyxis color palette"
     exit 0
 }
 
@@ -101,7 +75,6 @@ echo "This script will help you install the Zenith theme for GtkSourceView"
 echo
 
 INSTALL_THEME=false
-INSTALL_LANGS=false
 INSTALL_PTYXIS=false
 
 if [ $# -eq 0 ]; then
@@ -114,17 +87,12 @@ while [[ $# -gt 0 ]]; do
             INSTALL_THEME=true
             shift
             ;;
-        --langs)
-            INSTALL_LANGS=true
-            shift
-            ;;
         --ptyxis)
             INSTALL_PTYXIS=true
             shift
             ;;
         --full)
             INSTALL_THEME=true
-            INSTALL_LANGS=true
             INSTALL_PTYXIS=true
             shift
             ;;
@@ -137,10 +105,6 @@ done
 
 if [ "$INSTALL_THEME" = true ]; then
     install_theme
-fi
-
-if [ "$INSTALL_LANGS" = true ]; then
-    install_languages
 fi
 
 if [ "$INSTALL_PTYXIS" = true ]; then

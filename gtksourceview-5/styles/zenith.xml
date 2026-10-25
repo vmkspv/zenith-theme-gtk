@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    SPDX-FileCopyrightText: 2025 Vladimir Kosolapov, Brian Kuzmanoski
+    SPDX-FileCopyrightText: 2025-2026 Vladimir Kosolapov, Brian Kuzmanoski
     SPDX-License-Identifier: MIT
 -->
 <style-scheme id="zenith" name="Zenith" version="1.0">
@@ -8,78 +8,83 @@
     <_description>A refined dark theme with cohesive colors and complete UI coverage</_description>
 
     <metadata>
-        <property name="accent_color">#4d8fbb</property>
-        <property name="accent_bg_color">#4d8fbb</property>
-        <property name="accent_fg_color">#fafafa</property>
-        <property name="button_bg_color">#4d8fbb</property>
-        <property name="button_fg_color">#fafafa</property>
-        <property name="destructive_color">#be5a67</property>
-        <property name="destructive_bg_color">#be5a67</property>
-        <property name="destructive_fg_color">#fafafa</property>
-        <property name="headerbar_bg_color">#242a2e</property>
-        <property name="headerbar_fg_color">#cbd1d6</property>
-        <property name="success_color">#50966a</property>
-        <property name="success_bg_color">#50966a</property>
-        <property name="success_fg_color">#fafafa</property>
-        <property name="warning_color">#b67554</property>
-        <property name="warning_bg_color">#b67554</property>
-        <property name="warning_fg_color">#fafafa</property>
+        <property name="variant">dark</property>
+        <property name="accent_color">#61abda</property>
+        <property name="accent_bg_color">#61abda</property>
+        <property name="accent_fg_color">#1a1f22</property>
+        <property name="button_bg_color">#61abda</property>
+        <property name="button_fg_color">#1a1f22</property>
+        <property name="destructive_color">#de6e7c</property>
+        <property name="destructive_bg_color">#de6e7c</property>
+        <property name="destructive_fg_color">#1a1f22</property>
+        <property name="headerbar_bg_color">#21272b</property>
+        <property name="headerbar_fg_color">#d6dde3</property>
+        <property name="window_bg_color">#161a1d</property>
+        <property name="window_fg_color">#bcc3ca</property>
+        <property name="sidebar_bg_color">#21272b</property>
+        <property name="sidebar_fg_color">#a8b1b8</property>
+        <property name="popover_bg_color">#2e353a</property>
+        <property name="popover_fg_color">#dce2e6</property>
+        <property name="success_color">#64b280</property>
+        <property name="success_bg_color">#64b280</property>
+        <property name="success_fg_color">#1a1f22</property>
+        <property name="warning_color">#d68c67</property>
+        <property name="warning_bg_color">#d68c67</property>
+        <property name="warning_fg_color">#1a1f22</property>
         <property name="terminal-palette">vscode</property>
     </metadata>
 
     <!-- Core Palette -->
     <color name="accent"                     value="#61abda"/>
-    <color name="accent2"                    value="#4d97c6"/>
-    <color name="accent3"                    value="#395263"/>
-    <color name="base0"                      value="#000000"/>
     <color name="base1"                      value="#161a1d"/>
-    <color name="base2"                      value="#242a2e"/>
-    <color name="base3"                      value="#2f363b"/>
-    <color name="base4"                      value="#383f43"/>
+    <color name="base2"                      value="#21272b"/>
+    <color name="base3"                      value="#2e353a"/>
+    <color name="base4"                      value="#3f474c"/>
     <color name="base5"                      value="#637079"/>
     <color name="base6"                      value="#839099"/>
-    <color name="base7"                      value="#cbd1d6"/>
+    <color name="base7"                      value="#bcc3ca"/>
+    <color name="bracket"                    value="#475055"/>
     <color name="blue"                       value="#61abda"/>
     <color name="cyan"                       value="#65b8c1"/>
     <color name="green"                      value="#64b280"/>
-    <color name="lime"                       value="#64b280"/>
     <color name="orange"                     value="#d68c67"/>
     <color name="pink"                       value="#cf86c1"/>
     <color name="purple"                     value="#9d86ce"/>
     <color name="red"                        value="#de6e7c"/>
-    <color name="yellow"                     value="#d6b867"/>
+    <color name="ruler"                      value="#a2b9c9"/>
+    <color name="minimap"                    value="#9aaeb9"/>
 
     <!-- Global Styles -->
     <style name="background-pattern"         background="#1c2024"/>
-    <style name="bracket-match"              foreground="accent" background="accent3" bold="true"/>
-    <style name="bracket-mismatch"           foreground="red" background="#2a1f24" bold="true"/>
+    <style name="bracket-match"              background="bracket"/>
+    <style name="bracket-mismatch"           foreground="red" background="#de6e7c28"/>
     <style name="current-line"               background="base2"/>
-    <style name="current-line-number"        foreground="accent" background="base2"/>
+    <style name="current-line-number"        foreground="base7" background="base2" bold="false"/>
     <style name="cursor"                     foreground="accent"/>
     <style name="draw-spaces"                foreground="base4"/>
     <style name="line-numbers"               foreground="base5"/>
-    <style name="map-overlay"                background="base3"/>
-    <style name="right-margin"               foreground="base6" background="base5"/>
-    <style name="search-match"               background="accent3" foreground="base7"/>
-    <style name="secondary-cursor"           foreground="base7"/>
-    <style name="selection"                  background="accent3" foreground="base7"/>
-    <style name="selection-unfocused"        background="base3" foreground="base6"/>
-    <style name="snippet-focus"              background="base3"/>
+    <style name="map-overlay"                background="minimap"/>
+    <style name="right-margin"               foreground="ruler"/>
+    <style name="search-match"               background="#64b28050"/>
+    <style name="secondary-cursor"           foreground="base6"/>
+    <style name="selection"                  background="#61abda50"/>
+    <style name="selection-unfocused"        background="#d7efff28"/>
+    <style name="snippet-focus"              background="#61abda28"/>
     <style name="text"                       foreground="base7" background="base1"/>
 
     <!-- Diagnostics -->
-    <style name="def:error"                  foreground="red" background="#2a1f24" underline="error" bold="true"/>
-    <style name="def:misspelled-word"        underline="single" underline-color="#b67554"/>
-    <style name="def:note"                   foreground="blue" background="#1f242a" underline="info"/>
+    <style name="def:error"                  foreground="red" underline="error"/>
+    <style name="def:misspelled-word"        underline="single" underline-color="orange"/>
+    <style name="def:note"                   foreground="blue" underline="single" underline-color="blue"/>
     <style name="def:underline"              underline="single"/>
-    <style name="def:warning"                foreground="orange" background="#2a2420" underline="warning"/>
-    <style name="diagnostics:deprecated"     foreground="pink" background="#2a1f26" underline="error"/>
+    <style name="def:warning"                foreground="orange" underline="single" underline-color="orange"/>
+    <style name="diagnostics:deprecated"     foreground="base6" strikethrough="true"/>
 
     <!-- Core Syntax -->
     <style name="def:comment"                foreground="base5" italic="true"/>
     <style name="def:constant"               foreground="orange"/>
     <style name="def:doc-comment"            foreground="base5" italic="true"/>
-    <style name="def:doc-comment-element"    foreground="base6" background="base2" bold="true"/>
+    <style name="def:doc-comment-element"    foreground="base6" background="base3"/>
     <style name="def:function"               foreground="blue"/>
     <style name="def:identifier"             foreground="base7"/>
     <style name="def:keyword"                foreground="pink"/>
@@ -87,15 +92,15 @@
     <style name="def:namespace"              foreground="cyan"/>
     <style name="def:number"                 foreground="orange"/>
     <style name="def:operator"               foreground="base7"/>
-    <style name="def:preprocessor"           foreground="pink"/>
+    <style name="def:preprocessor"           foreground="base5"/>
     <style name="def:regexp"                 foreground="cyan"/>
     <style name="def:regexp-assertion"       foreground="pink"/>
     <style name="def:regexp-class"           foreground="cyan"/>
     <style name="def:regexp-grouping"        foreground="pink"/>
     <style name="def:regexp-quantifier"      foreground="orange"/>
-    <style name="def:reserved"               foreground="pink" bold="true"/>
+    <style name="def:reserved"               foreground="pink"/>
     <style name="def:special-char"           foreground="orange"/>
-    <style name="def:special-constant"       foreground="purple"/>
+    <style name="def:special-constant"       foreground="orange"/>
     <style name="def:statement"              foreground="pink"/>
     <style name="def:string"                 foreground="green"/>
     <style name="def:type"                   foreground="cyan"/>
@@ -121,10 +126,10 @@
     <!-- C Family -->
     <style name="c:included-file"            foreground="green"/>
     <style name="c:included-relative-file"   foreground="green"/>
-    <style name="c:macro-name"               foreground="blue" bold="true"/>
-    <style name="c:preprocessor"             foreground="pink"/>
+    <style name="c:macro-name"               foreground="base5"/>
+    <style name="c:preprocessor"             foreground="base5"/>
     <style name="c:storage-class"            foreground="pink"/>
-    <style name="c:type-keyword"             foreground="cyan" bold="true"/>
+    <style name="c:type-keyword"             foreground="cyan"/>
     <style name="cpp:standard-constant"      foreground="orange"/>
     <style name="cpp:standard-library"       foreground="cyan"/>
     <style name="cpp:standard-template"      foreground="cyan" italic="true"/>
@@ -249,7 +254,7 @@
     <!-- Markup & Documentation -->
     <!-- HTML/XML -->
     <style name="html:script"                foreground="blue"/>
-    <style name="xml:attribute-name"         foreground="blue"/>
+    <style name="xml:attribute-name"         foreground="base7"/>
     <style name="xml:attribute-value"        foreground="green"/>
     <style name="xml:cdata-delim"            foreground="base5" bold="true"/>
     <style name="xml:doctype"                foreground="pink" bold="true"/>
@@ -258,9 +263,9 @@
     <style name="xml:tag"                    foreground="pink"/>
 
     <!-- CSS/SCSS -->
-    <style name="css:class-selector"         foreground="blue"/>
-    <style name="css:id-selector"            foreground="blue"/>
-    <style name="css:property-name"          foreground="cyan"/>
+    <style name="css:class-selector"         foreground="pink"/>
+    <style name="css:id-selector"            foreground="pink"/>
+    <style name="css:property-name"          foreground="base7"/>
     <style name="css:property-value"         foreground="green"/>
     <style name="css:selector"               foreground="pink"/>
 
@@ -270,14 +275,14 @@
     <style name="markdown:code"              foreground="green"/>
     <style name="markdown:code-block"        foreground="green"/>
     <style name="markdown:code-span"         foreground="green"/>
-    <style name="markdown:emphasis"          bold="true" italic="true"/>
-    <style name="markdown:header"            foreground="pink" bold="true"/>
+    <style name="markdown:emphasis"          italic="true"/>
+    <style name="markdown:header"            bold="true"/>
     <style name="markdown:horizontal-rule"   foreground="base5"/>
     <style name="markdown:image"             foreground="pink"/>
     <style name="markdown:link-text"         foreground="blue"/>
-    <style name="markdown:list-marker"       foreground="orange" bold="true"/>
-    <style name="markdown:strong-emphasis"   foreground="orange" bold="true"/>
-    <style name="markdown:url"               foreground="cyan" underline="single"/>
+    <style name="markdown:list-marker"       foreground="orange"/>
+    <style name="markdown:strong-emphasis"   bold="true"/>
+    <style name="markdown:url"               foreground="blue" underline="single"/>
 
     <!-- GTK Documentation -->
     <style name="gtk-doc:constant"           foreground="green" bold="true"/>
@@ -310,16 +315,16 @@
     <!-- Config Formats -->
     <style name="ini:keyword"                foreground="pink"/>
     <style name="ini:variable"               foreground="cyan"/>
-    <style name="json:keyname"               foreground="pink"/>
-    <style name="toml:key"                   foreground="pink"/>
-    <style name="yaml:key"                   foreground="pink"/>
+    <style name="json:keyname"               foreground="purple"/>
+    <style name="toml:key"                   foreground="purple"/>
+    <style name="yaml:key"                   foreground="purple"/>
     <style name="yaml:scalar"                foreground="green"/>
 
     <!-- Version Control -->
-    <style name="diff:added-line"            foreground="green" background="#1a2419"/>
-    <style name="diff:changed-line"          foreground="yellow" background="#2a2420"/>
+    <style name="diff:added-line"            foreground="green" background="#64b2801b"/>
+    <style name="diff:changed-line"          foreground="blue" background="#61abda1a"/>
     <style name="diff:location"              foreground="accent" background="base2" bold="true"/>
-    <style name="diff:removed-line"          foreground="red" background="#2a1f24"/>
+    <style name="diff:removed-line"          foreground="red" background="#de6e7c20"/>
     <style name="diff:special-case"          foreground="pink" bold="true"/>
 
     <!-- Special Files -->
